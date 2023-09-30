@@ -14,17 +14,6 @@
 
     public static final String SHOULDER = "shoulder";
     public static final String ELBOW = "elbow";
-    public static final String WRIST = "wrist";
-    public static final String ROTATOR = "rotator";
-    public static final String CLAW = "claw";
-
-    public static final double CLAW_OPEN_POSITION = 0.4;
-    public static final double CLAW_CLENCH_POSITION = 0.8;
-    public static final double CLAW_INCREMENT = .01;
-
-    public static final double ROTATOR_INITIAL_POSITION = 0.1;
-    public static final double ROTATOR_TURNED_OVER_POSITION = .880;
-    public static final double ROTATOR_INCREMENT = .01;
 
     //Robot center from back is five and half inches away
     public static double ROBOT_CENTER_FROM_BACK = 5.5 * Field.MM_PER_INCH;
@@ -41,15 +30,6 @@
 
     public static final long SERVO_REQUIRED_TIME = 500; //500 milli-seconds for servo to function
 
-    public static final int WRIST_INITIAL_POSITION = 22;
-    public static final int WRIST_DEPOSIT_POSITION = 390;
-    public static final int WRIST_INTERIM_POSITION = 300;
-    public static final int WRIST_RELEASED_POSITION = 390;
-
-    public static final int ACCEPTABLE_WRIST_ERROR = 10;
-    public static final double MAX_WRIST_POWER = 0.2;
-    public static final double DRIVERS_WRIST_POWER = .5;
-
     public static final int ACCEPTABLE_ELBOW_ERROR = 10;
     public static final double MAX_ELBOW_POWER = 0.5;
     public static final double DRIVERS_ELBOW_POWER = .5;
@@ -60,11 +40,8 @@
     public static final double DRIVERS_SHOULDER_POWER = 0.5;
     public static final int SHOULDER_INCREMENT = 10;
 
-    public static final ArmPosition ARM_PICKUP_POSITION = new ArmPosition(0, 1200, WRIST_RELEASED_POSITION, ROTATOR_INITIAL_POSITION);
-    public static final ArmPosition ARM_INTERIM_PICKUP_POSITION = new ArmPosition(0, 400, WRIST_RELEASED_POSITION, ROTATOR_INITIAL_POSITION);
-    public static final ArmPosition ARM_INTERIM_DEPOSIT_POSITION = new ArmPosition(1300, 1015, WRIST_INTERIM_POSITION, ROTATOR_INITIAL_POSITION);
-    public static final ArmPosition ARM_HIGH_JUNCTION_POSITION = new ArmPosition(1470, 1015, WRIST_DEPOSIT_POSITION, ROTATOR_TURNED_OVER_POSITION);
-    public static final ArmPosition OBJECT_FINDER_POSITION = new ArmPosition(1250, 0, WRIST_INITIAL_POSITION, ROTATOR_INITIAL_POSITION);
+    public static final ArmPosition ARM_PICKUP_POSITION = new ArmPosition(0, 0);
+    public static final ArmPosition ARM_HIGH_JUNCTION_POSITION = new ArmPosition(500, 500);
 
     public static final String INOUT_TAKE_MOTOR = "inoutMotor";
     public static final double MAX_INOUT_SPEED = 1.0;

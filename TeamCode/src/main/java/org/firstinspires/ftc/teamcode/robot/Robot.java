@@ -353,8 +353,6 @@ public class Robot {
             }
         }
 
-
-
     public void setInitialPose(Pose2d pose) {
         this.driveTrain.setLocalizer(vslamCamera);
         this.vslamCamera.setCurrentPose(pose);

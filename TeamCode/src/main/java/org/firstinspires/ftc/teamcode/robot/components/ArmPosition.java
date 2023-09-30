@@ -9,21 +9,10 @@ public class ArmPosition {
         return elbow;
     }
 
-    public int getWrist() {
-        return wrist;
-    }
+    int shoulder, elbow;
 
-    public double getRotator() {
-        return rotator;
-    }
-
-    int shoulder, elbow, wrist;
-    double rotator;
-
-    public ArmPosition(int shoulder, int elbow, int wrist, double rotator) {
+    public ArmPosition(int shoulder, int elbow) {
         this.shoulder = shoulder;
         this.elbow = elbow;
-        this.wrist = wrist;
-        this.rotator = rotator;
     }
 }
