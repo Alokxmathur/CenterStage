@@ -25,7 +25,7 @@ import java.util.Locale;
 public class ArmOperation extends Operation {
 
     public enum Type {
-        Release, Open, Close, Ground, Low, Mid, High, ObjectFinder, Pickup, InterimPickup, InterimDeposit, Stack5, Stack4, Stack3, Stack2, Stack1
+        High, Pickup,
     }
     Arm arm;
     Type type;
@@ -42,40 +42,16 @@ public class ArmOperation extends Operation {
     }
 
     public boolean isComplete() {
-        if (type == Type.Open || type == Type.Close) {
-            return (new Date().getTime() - this.getStartTime().getTime() > RobotConfig.SERVO_REQUIRED_TIME);
-        }
-        else {
             return arm.isWithinRange();
-        }
     }
 
     @Override
     public void startOperation() {
         switch (this.type) {
-            case ObjectFinder:
-            case Release:
             case Pickup:
-            case InterimPickup:
-            case Ground:
-            case Low:
-            case Mid:
             case High:
-            case Stack1:
-            case Stack2:
-            case Stack3:
-            case Stack4:
-            case Stack5: {
-                arm.setPositions(type);
-                break;
-            }
-            case Open: {
-                arm.openClaw();
-                break;
-            }
-            case Close:
             {
-                arm.closeClaw();
+                arm.setPositions(type);
                 break;
             }
         }

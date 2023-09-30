@@ -299,29 +299,15 @@ public class Robot {
         /*
             gamePad 1 dpad up/down move rotator incrementally
         */
-        if (gamePad1.dpad_up) {
-            arm.backwardRotatorIncrementally();
-        } else if (gamePad1.dpad_down) {
-            arm.forwardRotatorIncrementally();
-        }
+
 
         /*
             gamePad 2 dpad left/right open/close claw totally
         */
-        if (gamePad2.dpad_left) {
-            arm.openClaw();
-        }
-        if (gamePad2.dpad_right) {
-            arm.closeClaw();
-        }
+
         /*
             gamePad 2 dpad up/down open/close claw incrementally
         */
-        if (gamePad2.dpad_up) {
-            arm.openClawIncrementally();
-        } else if (gamePad2.dpad_down) {
-            arm.closeClawIncrementally();
-        }
 
         if (secondaryOperationsCompleted()) {
             //handle shoulder movement
@@ -333,60 +319,41 @@ public class Robot {
             } else {
                 this.arm.retainShoulder();
             }
-            if (gamePad2.right_trigger > 0.2) {
-                //handle wrist position
-                if (Math.abs(gamePad2.right_stick_y) > 0.05) {
-                    this.arm.setWristPower(Math.pow(gamePad2.right_stick_y, 3) * RobotConfig.DRIVERS_WRIST_POWER);
-                } else {
-                    this.arm.retainWrist();
-                }
-            } else {
-                //handle elbow position
-                if (gamePad2.right_stick_y > 0.05) {
-                    this.arm.raiseElbowIncrementally();
-                    //this.arm.setElbowPower(Math.pow(gamePad2.right_stick_y, 3) * RobotConfig.DRIVERS_ELBOW_POWER);
-                } else if (gamePad2.right_stick_y < -0.05) {
-                    this.arm.lowerElbowIncrementally();
-                } else {
-                    this.arm.retainElbow();
-                }
+
             }
-            //release / fold wrist
-            if (gamePad2.left_bumper) {
-                this.arm.releaseWrist();
-            } else if (gamePad2.right_bumper) {
-                this.arm.foldWrist();
+        //handle elbow position
+            if (gamePad2.right_stick_y > 0.05) {
+                this.arm.raiseElbowIncrementally();
+                //this.arm.setElbowPower(Math.pow(gamePad2.right_stick_y, 3) * RobotConfig.DRIVERS_ELBOW_POWER);
+            } else if (gamePad2.right_stick_y < -0.05) {
+                this.arm.lowerElbowIncrementally();
+            } else {
+                this.arm.retainElbow();
             }
 
+            //release / fold wrist
+
             if (gamePad2.a) {
-                queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.Ground, "Ground Junction"));
+                queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.Pickup, "Ground Junction"));
             } else if (gamePad2.b) {
-                queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.Low, "Low Junction"));
-            } else if (gamePad2.y) {
-                queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.Mid, "Mid Junction"));
+                queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.High, "Low Junction"));
             } else if (gamePad2.x) {
                 if (gamePad2.right_trigger > 0.1) {
                     for (int i = 0; i < 10; i++) {
-                        arm.openClaw();
-                        queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.InterimPickup, "Interim Pickup"));
                         queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.Pickup, "Pickup"));
-                        queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.Close, "Close claw"));
-                        queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.InterimDeposit, "Interim Deposit Position"));
                         queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.High, "High Junction"));
                         //queueSecondaryOperation(new WaitOperation(1000, "Wait to settle"));
-                        queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.Open, "Open claw"));
                     }
                 }
                 else {
                     queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.High, "High Junction"));
                 }
 
-            } else if (gamePad1.a) {
-                queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.Pickup, "Pickup"));
+
             }
         }
 
-    }
+
 
     public void setInitialPose(Pose2d pose) {
         this.driveTrain.setLocalizer(vslamCamera);

@@ -12,7 +12,6 @@ public abstract class Autonomous extends AutonomousHelper {
     public void start() {
         super.start();
         State state = new State("Grab Preloaded Cone");
-        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Close, "Close claw"));
         state.addPrimaryOperation(new WaitOperation(1000, "Wait a sec"));
         //state.addPrimaryOperation(new WinchOperation(robot.getWinch(), robot.getFourBar(), WinchOperation.Type.Low, "Raise enough to clear low pole"));
         states.add(state);
@@ -31,7 +30,6 @@ public abstract class Autonomous extends AutonomousHelper {
         states.add(state);
 
         state = new State("Deliver loaded cone");
-        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Open, "Open Claw"));
         states.add(state);
 
         state = new State("Reach stack");

@@ -21,7 +21,7 @@ public class ObjectAligner extends ContourFinderTeleOp {
     public void start() {
         super.startStreaming();
         webcam = robot.getWebcam();
-        robot.queueSecondaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.ObjectFinder, "Object finder position"));
+        robot.queueSecondaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Pickup, "Object finder position"));
     }
     @Override
     public void loop() {
