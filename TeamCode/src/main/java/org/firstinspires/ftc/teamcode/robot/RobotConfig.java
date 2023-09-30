@@ -31,9 +31,9 @@
     public static final long SERVO_REQUIRED_TIME = 500; //500 milli-seconds for servo to function
 
     public static final int ACCEPTABLE_ELBOW_ERROR = 10;
-    public static final double MAX_ELBOW_POWER = 0.5;
+    public static final double MAX_ELBOW_POWER = 0.3;
     public static final double DRIVERS_ELBOW_POWER = .5;
-    public static final int ELBOW_INCREMENT = 10;
+    public static final int ELBOW_INCREMENT = 2;
 
     public static final int ACCEPTABLE_SHOULDER_ERROR = 10;
     public static final double MAX_SHOULDER_POWER = 0.25;
@@ -41,7 +41,7 @@
     public static final int SHOULDER_INCREMENT = 10;
 
     public static final ArmPosition ARM_PICKUP_POSITION = new ArmPosition(0, 0);
-    public static final ArmPosition ARM_HIGH_JUNCTION_POSITION = new ArmPosition(500, 500);
+    public static final ArmPosition ARM_HIGH_JUNCTION_POSITION = new ArmPosition(800, 140);
 
     public static final String INOUT_TAKE_MOTOR = "inoutMotor";
     public static final double MAX_INOUT_SPEED = 1.0;
