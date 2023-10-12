@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.robot.operations;
 
 import org.firstinspires.ftc.teamcode.game.Match;
-import org.firstinspires.ftc.teamcode.robot.components.vision.ObjectDetectorWebcam;
+import org.firstinspires.ftc.teamcode.robot.components.vision.detector.ObjectDetectorWebcam;
 import org.firstinspires.ftc.teamcode.robot.components.vision.detector.ObjectDetector;
 
 import java.util.Locale;
