@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.robot.components.Arm;
 import org.firstinspires.ftc.teamcode.robot.components.InOutTake;
 import org.firstinspires.ftc.teamcode.robot.components.LED;
 import org.firstinspires.ftc.teamcode.robot.components.drivetrain.DriveTrain;
-import org.firstinspires.ftc.teamcode.robot.components.vision.ObjectDetectorWebcam;
+import org.firstinspires.ftc.teamcode.robot.components.vision.detector.ObjectDetectorWebcam;
 import org.firstinspires.ftc.teamcode.robot.components.vision.VslamCamera;
 import org.firstinspires.ftc.teamcode.robot.operations.ArmOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.Operation;

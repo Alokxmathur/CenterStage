@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robot.components.vision.pipeline;
+package org.firstinspires.ftc.teamcode.robot.components.vision.example;
 
 import android.graphics.Bitmap;
 
@@ -16,15 +16,15 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 
-import static org.firstinspires.ftc.teamcode.robot.components.vision.pipeline.Constants.BLUR;
-import static org.firstinspires.ftc.teamcode.robot.components.vision.pipeline.Constants.BLUR_RADIUS;
-import static org.firstinspires.ftc.teamcode.robot.components.vision.pipeline.Constants.HUE_MAX;
-import static org.firstinspires.ftc.teamcode.robot.components.vision.pipeline.Constants.HUE_MIN;
-import static org.firstinspires.ftc.teamcode.robot.components.vision.pipeline.Constants.MIN_CONTOUR_AREA;
-import static org.firstinspires.ftc.teamcode.robot.components.vision.pipeline.Constants.SATURATION_MAX;
-import static org.firstinspires.ftc.teamcode.robot.components.vision.pipeline.Constants.SATURATION_MIN;
-import static org.firstinspires.ftc.teamcode.robot.components.vision.pipeline.Constants.VALUE_MAX;
-import static org.firstinspires.ftc.teamcode.robot.components.vision.pipeline.Constants.VALUE_MIN;
+import static org.firstinspires.ftc.teamcode.robot.components.vision.example.Constants.BLUR;
+import static org.firstinspires.ftc.teamcode.robot.components.vision.example.Constants.BLUR_RADIUS;
+import static org.firstinspires.ftc.teamcode.robot.components.vision.example.Constants.HUE_MAX;
+import static org.firstinspires.ftc.teamcode.robot.components.vision.example.Constants.HUE_MIN;
+import static org.firstinspires.ftc.teamcode.robot.components.vision.example.Constants.MIN_CONTOUR_AREA;
+import static org.firstinspires.ftc.teamcode.robot.components.vision.example.Constants.SATURATION_MAX;
+import static org.firstinspires.ftc.teamcode.robot.components.vision.example.Constants.SATURATION_MIN;
+import static org.firstinspires.ftc.teamcode.robot.components.vision.example.Constants.VALUE_MAX;
+import static org.firstinspires.ftc.teamcode.robot.components.vision.example.Constants.VALUE_MIN;
 
 public class ExampleDetectorPipeline extends OpenCvPipeline
 {
