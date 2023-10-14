@@ -72,7 +72,6 @@ public class ObjectDetector {
         System.out.println("setting up cross hair, mat size = " + sizingMat.size());
 
         crossHairPoint = new Point(sizingMat.cols()/2, sizingMat.rows()/2);
-        System.out.println("Setup cross hair at " + crossHairPoint.toString());
     }
 
     public Point getCrossHairPoint() {
@@ -169,10 +168,10 @@ public class ObjectDetector {
 
     public ObjectDetector(int minAllowedX, int maxAllowedX, int minAllowedY, int maxAllowedY,
                           double minArea) {
-        this.minAllowedX = minAllowedX;
-        this.maxAllowedX = maxAllowedX;
-        this.minAllowedY = minAllowedY;
-        this.maxAllowedY = maxAllowedY;
+        this.minAllowedX = minAllowedY;
+        this.maxAllowedX = maxAllowedY;
+        this.minAllowedY = minAllowedX;
+        this.maxAllowedY = maxAllowedX;
         this.minArea = minArea;
         setupAreaOfInterest();
     }
@@ -182,6 +181,7 @@ public class ObjectDetector {
     }
 
     private void setupAreaOfInterest() {
+        this.areaOfInterest = new Rect(minAllowedY, minAllowedX, maxAllowedY-minAllowedY, maxAllowedX-minAllowedX);
     }
 
     public String getStatus() {
@@ -227,7 +227,7 @@ public class ObjectDetector {
         //convert to HSV so we can use hsv range of objects to filter
         Imgproc.cvtColor(pyrDownHsvMat, pyrDownHsvMat, Imgproc.COLOR_BGR2HSV);
 
-        crossHairHSV = mHsvMat.get((int)crossHairPoint.y, (int)crossHairPoint.x);
+        crossHairHSV = mHsvMat.get((int)crossHairPoint.x, (int)crossHairPoint.y);
         if (findObjectAtCrossHair) {
             double minHue = Math.max(crossHairHSV[0] - 5, 0);
             double maxHue = Math.min(crossHairHSV[0] + 5, 180);
