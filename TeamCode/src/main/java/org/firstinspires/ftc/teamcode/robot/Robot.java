@@ -142,10 +142,15 @@ public class Robot {
 
     public void initCameras() {
         //initialize Vslam camera
+        /*
+
+        Not initialising VSLAM as it is not allowed this year
         Match.log("Initializing VSLAM");
         telemetry.addData("Status", "Initializing VSLAM, please wait");
         telemetry.update();
         this.vslamCamera = new VslamCamera(hardwareMap);
+
+         */
 
         //initialize webcam
         Match.log("Initializing Webcam");
@@ -197,7 +202,7 @@ public class Robot {
      * @return the current x position in mms
      */
     public double getCurrentX() {
-        return this.vslamCamera.getPoseEstimate().getX() * Field.MM_PER_INCH;
+        return 0;//this.vslamCamera.getPoseEstimate().getX() * Field.MM_PER_INCH;
     }
 
     /**
@@ -206,7 +211,7 @@ public class Robot {
      * @return the current y position in mms
      */
     public double getCurrentY() {
-        return this.vslamCamera.getPoseEstimate().getY() * Field.MM_PER_INCH;
+        return 0;//this.vslamCamera.getPoseEstimate().getY() * Field.MM_PER_INCH;
     }
 
     /**
@@ -215,7 +220,7 @@ public class Robot {
      * @return the heading in radians
      */
     public double getCurrentTheta() {
-        return AngleUnit.normalizeRadians(this.vslamCamera.getPoseEstimate().getHeading());
+        return 0;//AngleUnit.normalizeRadians(this.vslamCamera.getPoseEstimate().getHeading());
     }
 
     public boolean allOperationsCompleted() {
@@ -235,11 +240,11 @@ public class Robot {
     }
 
     public String getPosition() {
-        return this.vslamCamera.getPoseEstimate().toString();
+        return "";//this.vslamCamera.getPoseEstimate().toString();
     }
 
     public boolean havePosition() {
-        return vslamCamera.havePosition();
+        return true;//vslamCamera.havePosition();
     }
 
     public String getState() {
@@ -251,7 +256,7 @@ public class Robot {
     }
 
     public boolean fullyInitialized() {
-        return this.everythingButCamerasInitialized && this.vslamCamera.isInitialized();
+        return this.everythingButCamerasInitialized;
     }
 
     /*
@@ -306,63 +311,48 @@ public class Robot {
         /*
             gamePad 1 dpad up/down move rotator incrementally
         */
-
+        if (gamePad1.dpad_up) {
+            arm.backwardRotatorIncrementally();
+        } else if (gamePad1.dpad_down) {
+            arm.forwardRotatorIncrementally();
+        }
 
         /*
             gamePad 2 dpad left/right open/close claw totally
         */
-
+        if (gamePad2.dpad_left) {
+            arm.openClaw();
+        }
+        if (gamePad2.dpad_right) {
+            arm.closeClaw();
+        }
         /*
             gamePad 2 dpad up/down open/close claw incrementally
         */
+        if (gamePad2.dpad_up) {
+            arm.openClawIncrementally();
+        } else if (gamePad2.dpad_down) {
+            arm.closeClawIncrementally();
+        }
 
         if (secondaryOperationsCompleted()) {
             //handle shoulder movement
-            if (gamePad2.left_stick_y > 0.05) {
-                this.arm.raiseShoulderIncrementally();
-                //this.arm.setShoulderPower(Math.pow(gamePad2.left_stick_y, 3) * RobotConfig.DRIVERS_SHOULDER_POWER);
-            } else if (gamePad2.left_stick_y < -0.05) {
-                this.arm.lowerShoulderIncrementally();
+            if (Math.abs(gamePad2.left_stick_y) > 0.05) {
+                this.arm.setShoulderPower(gamePad2.left_stick_y);
             } else {
                 this.arm.retainShoulder();
             }
-
-            }
-        //handle elbow position
-            if (gamePad2.right_stick_y > 0.05) {
-                this.arm.raiseElbowIncrementally();
-                //this.arm.setElbowPower(Math.pow(gamePad2.right_stick_y, 3) * RobotConfig.DRIVERS_ELBOW_POWER);
-            } else if (gamePad2.right_stick_y < -0.05) {
-                this.arm.lowerElbowIncrementally();
+            if (Math.abs(gamePad2.right_stick_y) > 0.05) {
+                this.arm.setElbowPower(Math.pow(gamePad2.right_stick_y, 3));
             } else {
-                this.arm.retainElbow();
-            }
-
-            //release / fold wrist
-
-            if (gamePad2.a) {
-                queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.Pickup, "Ground Junction"));
-            } else if (gamePad2.b) {
-                queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.High, "Low Junction"));
-            } else if (gamePad2.x) {
-                if (gamePad2.right_trigger > 0.1) {
-                    for (int i = 0; i < 10; i++) {
-                        queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.Pickup, "Pickup"));
-                        queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.High, "High Junction"));
-                        //queueSecondaryOperation(new WaitOperation(1000, "Wait to settle"));
-                    }
-                }
-                else {
-                    queueSecondaryOperation(new ArmOperation(arm, ArmOperation.Type.High, "High Junction"));
-                }
-
-
+                    this.arm.retainElbow();
             }
         }
+    }
 
     public void setInitialPose(Pose2d pose) {
-        this.driveTrain.setLocalizer(vslamCamera);
-        this.vslamCamera.setCurrentPose(pose);
+        //this.driveTrain.setLocalizer(vslamCamera);
+        //this.vslamCamera.setCurrentPose(pose);
     }
 
     public void reset() {
@@ -376,7 +366,7 @@ public class Robot {
     }
 
     public Pose2d getPose() {
-        return this.vslamCamera.getPoseEstimate();
+        return new Pose2d(); //this.vslamCamera.getPoseEstimate();
     }
 
     public DriveTrain getDriveTrain() {
@@ -388,7 +378,7 @@ public class Robot {
     }
 
     public String getVSLAMStatus() {
-        return this.vslamCamera.getStatus();
+        return "";//this.vslamCamera.getStatus();
     }
 
     public RevBlinkinLedDriver.BlinkinPattern getLEDStatus() {
