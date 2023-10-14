@@ -1,9 +1,15 @@
 package org.firstinspires.ftc.teamcode.opmodes.autonomous;
 
 import org.firstinspires.ftc.teamcode.game.Match;
+import org.firstinspires.ftc.teamcode.robot.RobotConfig;
+import org.firstinspires.ftc.teamcode.robot.components.drivetrain.DriveTrain;
 import org.firstinspires.ftc.teamcode.robot.operations.ArmOperation;
+import org.firstinspires.ftc.teamcode.robot.operations.DriveForDistanceOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.FollowTrajectory;
 import org.firstinspires.ftc.teamcode.robot.operations.State;
+import org.firstinspires.ftc.teamcode.robot.operations.StrafeLeftForDistanceOperation;
+import org.firstinspires.ftc.teamcode.robot.operations.StrafeLeftForDistanceWithHeadingOperation;
+import org.firstinspires.ftc.teamcode.robot.operations.StrafeRightForDistanceOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.WaitOperation;
 
 public abstract class Autonomous extends AutonomousHelper {
@@ -11,10 +17,17 @@ public abstract class Autonomous extends AutonomousHelper {
     @Override
     public void start() {
         super.start();
-        State state = new State("Grab Preloaded Cone");
+        State state = new State("Deliver Purple Pixel");
         state.addPrimaryOperation(new WaitOperation(1000, "Wait a sec"));
-        //state.addPrimaryOperation(new WinchOperation(robot.getWinch(), robot.getFourBar(), WinchOperation.Type.Low, "Raise enough to clear low pole"));
+        //Spike Mark 1
+        state.addPrimaryOperation(new StrafeLeftForDistanceOperation(12, 50, "Line up with Spike Mark 1"));
+        state.addPrimaryOperation(new DriveForDistanceOperation(40- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 1"));
+        //Spike Mark 2
+        state.addPrimaryOperation(new DriveForDistanceOperation(47- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 2"));
         states.add(state);
+        //Spike Mark 3
+        state.addPrimaryOperation(new StrafeRightForDistanceOperation(12, 50, "Line up with Spike Mark 3"));
+        state.addPrimaryOperation(new DriveForDistanceOperation(40- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 3"));
 
         state = new State("Clear starting position");
         //raise cone to high level

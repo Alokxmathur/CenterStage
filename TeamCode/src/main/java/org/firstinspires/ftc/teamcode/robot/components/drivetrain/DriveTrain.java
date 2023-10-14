@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.robot.operations.DriveToPositionOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.FollowTrajectory;
 import org.firstinspires.ftc.teamcode.robot.operations.StrafeLeftForDistanceOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.StrafeLeftForDistanceWithHeadingOperation;
+import org.firstinspires.ftc.teamcode.robot.operations.StrafeRightForDistanceOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.TurnAntiClockwiseOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.TurnClockwiseOperation;
 
@@ -299,6 +300,25 @@ public class DriveTrain extends SilverTitansMecanumDrive {
         this.rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
+    public void handleOperation(StrafeRightForDistanceOperation operation) {
+        stop();
+        int encoderChange = SilverTitansDriveConstants.mmToEncoderTicks(operation.getDistance() * 1.05);
+        this.leftFront.setTargetPosition(leftFront.getCurrentPosition() + encoderChange);
+        this.rightFront.setTargetPosition(rightFront.getCurrentPosition() - encoderChange);
+        this.leftRear.setTargetPosition(leftRear.getCurrentPosition() - encoderChange);
+        this.rightRear.setTargetPosition(rightRear.getCurrentPosition() + encoderChange);
+
+        this.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        this.leftFront.setPower(operation.getSpeed());
+        this.rightFront.setPower(operation.getSpeed());
+        this.leftRear.setPower(operation.getSpeed());
+        this.rightRear.setPower(operation.getSpeed());
+    }
+
 
     private boolean withinRange(DcMotor... motors) {
         for (DcMotor motor: motors) {
@@ -436,4 +456,5 @@ public class DriveTrain extends SilverTitansMecanumDrive {
         }
         return ret;
     }
+
 }
