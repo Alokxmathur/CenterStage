@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.robot.components.Arm;
 import org.firstinspires.ftc.teamcode.robot.components.InOutTake;
 import org.firstinspires.ftc.teamcode.robot.components.LED;
 import org.firstinspires.ftc.teamcode.robot.components.drivetrain.DriveTrain;
-import org.firstinspires.ftc.teamcode.robot.components.vision.ObjectDetectorWebcam;
+import org.firstinspires.ftc.teamcode.robot.components.vision.detector.ObjectDetectorWebcam;
 import org.firstinspires.ftc.teamcode.robot.components.vision.VslamCamera;
 import org.firstinspires.ftc.teamcode.robot.operations.ArmOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.Operation;
@@ -266,7 +266,7 @@ public class Robot {
         }
 
         this.handleDriveTrain(gamePad1);
-        handleArm(gamePad1, gamePad2);
+        handleIntake(gamePad1, gamePad2);
     }
 
     public void handleLED(Gamepad gamePad1, Gamepad gamePad2) {
@@ -285,14 +285,21 @@ public class Robot {
         }
     }
 
-    public void handleArm(Gamepad gamePad1, Gamepad gamePad2) {
+    /**
+     * Handle the intake
+     * @param gamePad1
+     * @param gamePad2
+     */
+    public void handleIntake(Gamepad gamePad1, Gamepad gamePad2) {
         /*
-            gamePad 1 dpad left/right rotate claw totally
+            gamePad 1 dpad left/right turn on/off the intake
         */
         if (gamePad1.dpad_left) {
+            //start intake
             inOutTake.setSpeed(-1);
         }
         if (gamePad1.dpad_right) {
+            //stop intake
             inOutTake.setSpeed(0);
         }
 

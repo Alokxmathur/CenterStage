@@ -45,4 +45,7 @@
 
     public static final String INOUT_TAKE_MOTOR = "inoutMotor";
     public static final double MAX_INOUT_SPEED = 1.0;
+
+    public static final int X_PIXEL_COUNT = 2304 ;
+    public static final int Y_PIXEL_COUNT = 1536;
  }

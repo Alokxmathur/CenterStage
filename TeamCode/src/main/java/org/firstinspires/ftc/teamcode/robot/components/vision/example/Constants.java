@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robot.components.vision.pipeline;
+package org.firstinspires.ftc.teamcode.robot.components.vision.example;
 
 import com.acmerobotics.dashboard.config.Config;
 

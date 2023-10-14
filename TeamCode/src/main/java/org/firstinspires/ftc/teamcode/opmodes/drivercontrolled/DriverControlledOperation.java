@@ -100,8 +100,6 @@ public class DriverControlledOperation extends OpMode {
     @Override
     public void start() {
         match.setTeleopStartTime(new Date());
-        robot.getArm().setShoulderPosition(0);
-        robot.getArm().setElbowPosition(0);
     }
 
     /*

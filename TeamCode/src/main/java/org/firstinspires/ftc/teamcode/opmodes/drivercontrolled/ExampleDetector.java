@@ -28,8 +28,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.robot.components.vision.ObjectDetectorWebcam;
-import org.firstinspires.ftc.teamcode.robot.components.vision.pipeline.ExampleDetectorPipeline;
+import org.firstinspires.ftc.teamcode.robot.RobotConfig;
+import org.firstinspires.ftc.teamcode.robot.components.vision.example.ExampleDetectorPipeline;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -49,13 +49,13 @@ public class ExampleDetector extends LinearOpMode
     public void runOpMode() {
         exampleDetectorPipeline = new ExampleDetectorPipeline(true);
 
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, RobotConfig.WEBCAM_ID));
         webcam.setPipeline(exampleDetectorPipeline);
         webcam.setMillisecondsPermissionTimeout(2500); // Timeout for obtaining permission is configurable. Set before opening.
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                webcam.startStreaming(ObjectDetectorWebcam.X_PIXEL_COUNT, ObjectDetectorWebcam.Y_PIXEL_COUNT, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(RobotConfig.X_PIXEL_COUNT, RobotConfig.Y_PIXEL_COUNT, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
