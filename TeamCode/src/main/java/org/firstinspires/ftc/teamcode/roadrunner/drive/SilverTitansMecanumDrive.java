@@ -117,7 +117,8 @@ public class SilverTitansMecanumDrive extends MecanumDrive {
 
         // TODO: if desired, use setLocalizer() to change the localization method
         // for instance, setLocalizer(new ThreeTrackingWheelLocalizer(...));
-        this.setLocalizer(camera);
+        //Disabled setting localizer to use VSLAM since T265 Camera is not allowed this year
+        //this.setLocalizer(camera);
 
         trajectorySequenceRunner = new TrajectorySequenceRunner(follower, HEADING_PID);
     }

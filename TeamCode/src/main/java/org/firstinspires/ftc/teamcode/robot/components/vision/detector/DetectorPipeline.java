@@ -43,8 +43,9 @@ public class DetectorPipeline extends OpenCvPipeline {
             //let our object detector detect objects
             Map<ObjectDetector.ObjectType, DetectableObject> detectedObjects = objectDetector.process(inputImageBGR);
 
-            //Draw a market at the cross hair point
-            Imgproc.drawMarker(inputImageBGR, objectDetector.getCrossHairPoint(), RED, Imgproc.MARKER_CROSS);
+            //Draw a marker at the cross hair point
+            Imgproc.drawMarker(inputImageBGR, objectDetector.getCrossHairPoint(), RED, Imgproc.MARKER_CROSS, 100);
+
 
             //now go through each object to paint contours etc.
             for (ObjectDetector.ObjectType objectType: detectedObjects.keySet()) {
@@ -103,17 +104,20 @@ public class DetectorPipeline extends OpenCvPipeline {
                 }
             }
             //Draw a rectangle depicting our area of interest
-            Imgproc.rectangle(inputImageBGR, objectDetector.getRectangleOfInterest(), GREEN, 5);
-            Imgproc.putText(inputImageBGR,
-                    String.format(Locale.getDefault(), "Max X) {%d, Max y) {%d",
-                            objectDetector.getRectangleOfInterest().width,
-                            objectDetector.getRectangleOfInterest().height),
-                    new Point(20, objectDetector.getRectangleOfInterest().height),
-                    Imgproc.FONT_HERSHEY_SIMPLEX,
-                    2,
-                    BLACK,
-                    2
-            );
+            Rect areaOfInterest = objectDetector.getRectangleOfInterest();
+            if (areaOfInterest != null) {
+                Imgproc.rectangle(inputImageBGR, objectDetector.getRectangleOfInterest(), GREEN, 5);
+                Imgproc.putText(inputImageBGR,
+                        String.format(Locale.getDefault(), "Max X) {%d, Max y) {%d",
+                                objectDetector.getRectangleOfInterest().width,
+                                objectDetector.getRectangleOfInterest().height),
+                        new Point(20, objectDetector.getRectangleOfInterest().height),
+                        Imgproc.FONT_HERSHEY_SIMPLEX,
+                        2,
+                        BLACK,
+                        2
+                );
+            }
 
 
             Thread.yield();

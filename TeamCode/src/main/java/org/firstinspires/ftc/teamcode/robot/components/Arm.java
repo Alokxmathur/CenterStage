@@ -159,7 +159,7 @@ public class Arm {
      * Retain shoulder in its current position
      */
     public void retainShoulder() {
-        setShoulderPosition(lastShoulderPosition);
+        setShoulderPosition(shoulder.getCurrentPosition());
     }
 
     /**
@@ -187,7 +187,7 @@ public class Arm {
      * Retain elbow in its current position
      */
     public void retainElbow() {
-        setElbowPosition(lastElbowPosition);
+        setElbowPosition(elbow.getCurrentPosition());
     }
 
     /**
@@ -199,7 +199,6 @@ public class Arm {
         this.elbow.setPower(power);
         lastElbowPosition = elbow.getCurrentPosition();
     }
-
 
     /**
      * Set the wrist motor position
