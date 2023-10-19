@@ -4,12 +4,14 @@ import org.firstinspires.ftc.teamcode.game.Match;
 import org.firstinspires.ftc.teamcode.robot.RobotConfig;
 import org.firstinspires.ftc.teamcode.robot.components.drivetrain.DriveTrain;
 import org.firstinspires.ftc.teamcode.robot.operations.ArmOperation;
+import org.firstinspires.ftc.teamcode.robot.operations.BearingOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.DriveForDistanceOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.FollowTrajectory;
 import org.firstinspires.ftc.teamcode.robot.operations.State;
 import org.firstinspires.ftc.teamcode.robot.operations.StrafeLeftForDistanceOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.StrafeLeftForDistanceWithHeadingOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.StrafeRightForDistanceOperation;
+import org.firstinspires.ftc.teamcode.robot.operations.TurnAntiClockwiseOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.WaitOperation;
 
 public abstract class Autonomous extends AutonomousHelper {
@@ -21,17 +23,27 @@ public abstract class Autonomous extends AutonomousHelper {
         state.addPrimaryOperation(new WaitOperation(1000, "Wait a sec"));
         //Spike Mark 1
         state.addPrimaryOperation(new StrafeLeftForDistanceOperation(12, 50, "Line up with Spike Mark 1"));
-        state.addPrimaryOperation(new DriveForDistanceOperation(40- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 1"));
+        state.addPrimaryOperation(new DriveForDistanceOperation(44- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 1"));
+        state.addPrimaryOperation(new DriveForDistanceOperation(8, -50, "Back away"));
+        state.addPrimaryOperation(new BearingOperation());
+        state.addPrimaryOperation(new DriveForDistanceOperation(12, 50, "Go to Interim Position"));
+
         //Spike Mark 2
         state.addPrimaryOperation(new DriveForDistanceOperation(47- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 2"));
-        states.add(state);
+        state.addPrimaryOperation(new DriveForDistanceOperation(12, -50, "Back away"));
+        state.addPrimaryOperation(new BearingOperation());
+        state.addPrimaryOperation(new DriveForDistanceOperation(24, 50, "Go to Interim Position"));
+
         //Spike Mark 3
         state.addPrimaryOperation(new StrafeRightForDistanceOperation(12, 50, "Line up with Spike Mark 3"));
-        state.addPrimaryOperation(new DriveForDistanceOperation(40- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 3"));
+        state.addPrimaryOperation(new DriveForDistanceOperation(44- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 3"));
+        state.addPrimaryOperation(new DriveForDistanceOperation(8, -50, "Back away"));
+        state.addPrimaryOperation(new BearingOperation());
+        state.addPrimaryOperation(new DriveForDistanceOperation(36, 50, "Go to Interim Position"));
+        states.add(state);
 
-        state = new State("Clear starting position");
+        state = new State("Approach Backdrop");
         //raise cone to high level
-        //state.addSecondaryOperation(new WinchOperation(robot.getWinch(), robot.getFourBar(), WinchOperation.Type.High, "Go High"));
         state.addPrimaryOperation(new FollowTrajectory(
                 field.getTurnaroundTrajectory(),
                 "Slide over"
