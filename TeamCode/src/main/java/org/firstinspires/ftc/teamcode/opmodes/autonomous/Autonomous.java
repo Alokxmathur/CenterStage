@@ -58,10 +58,13 @@ public abstract class Autonomous extends AutonomousHelper {
         state.addPrimaryOperation(new StrafeRightForDistanceOperation(8, 10, "Slide Right"));
         state.addPrimaryOperation(new DriveForDistanceOperation(15, 10, "Approach Claw to BackDrop"));
 
-        state.addPrimaryOperation(new ArmOperation());
+        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Open, "Drop Yellow Pixel"));
         states.add(state);
 
         state = new State("Navigate to Scoring Area");
+        state.addPrimaryOperation(new DriveForDistanceOperation(-3, 50, "Back Away"));
+        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Pickup, "Lower Arm"));
+
         //Spike Mark 1
         state.addPrimaryOperation(new StrafeRightForDistanceOperation(32, 50, "Navigate"));
         //Spike Mark 2

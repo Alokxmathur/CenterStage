@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.robot.operations;
 
 import org.firstinspires.ftc.teamcode.robot.RobotConfig;
 import org.firstinspires.ftc.teamcode.robot.components.Arm;
+import org.firstinspires.ftc.teamcode.robot.components.Claw;
 
 import java.util.Date;
 import java.util.Locale;
@@ -25,13 +26,15 @@ import java.util.Locale;
 public class ArmOperation extends Operation {
 
     public enum Type {
-        High, Pickup,
+        High, Pickup, Open, Close
     }
     Arm arm;
+    Claw claw;
     Type type;
 
     public ArmOperation(Arm arm, Type type, String title) {
         this.arm = arm;
+        this.claw = claw;
         this.type = type;
         this.title = title;
     }
@@ -42,7 +45,12 @@ public class ArmOperation extends Operation {
     }
 
     public boolean isComplete() {
+        if (type == Type.Open || type == Type.Close) {
+            return (new Date().getTime() - this.getStartTime().getTime() > RobotConfig.SERVO_REQUIRED_TIME);
+        }
+        else {
             return arm.isWithinRange();
+        }
     }
 
     @Override
@@ -52,6 +60,16 @@ public class ArmOperation extends Operation {
             case High:
             {
                 arm.setPositions(type);
+                break;
+            }
+            case Open:
+            {
+                arm.openClaw();
+                break;
+            }
+            case Close:
+            {
+                arm.closeClaw();
                 break;
             }
         }
