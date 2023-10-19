@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes.autonomous;
 
 import org.firstinspires.ftc.teamcode.game.Match;
 import org.firstinspires.ftc.teamcode.robot.RobotConfig;
+import org.firstinspires.ftc.teamcode.robot.components.Arm;
 import org.firstinspires.ftc.teamcode.robot.components.drivetrain.DriveTrain;
 import org.firstinspires.ftc.teamcode.robot.operations.ArmOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.BearingOperation;
@@ -22,51 +23,51 @@ public abstract class Autonomous extends AutonomousHelper {
         State state = new State("Deliver Purple Pixel");
         state.addPrimaryOperation(new WaitOperation(1000, "Wait a sec"));
         //Spike Mark 1
-        state.addPrimaryOperation(new StrafeLeftForDistanceOperation(12, 50, "Line up with Spike Mark 1"));
         state.addPrimaryOperation(new DriveForDistanceOperation(44- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 1"));
+        state.addPrimaryOperation(new StrafeLeftForDistanceOperation(12, 50, "Line up with Spike Mark 1"));
         state.addPrimaryOperation(new DriveForDistanceOperation(8, -50, "Back away"));
-        state.addPrimaryOperation(new BearingOperation());
+        state.addPrimaryOperation(new BearingOperation(0, "Turn Toward Backdrop"));
         state.addPrimaryOperation(new DriveForDistanceOperation(12, 50, "Go to Interim Position"));
 
         //Spike Mark 2
         state.addPrimaryOperation(new DriveForDistanceOperation(47- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 2"));
         state.addPrimaryOperation(new DriveForDistanceOperation(12, -50, "Back away"));
-        state.addPrimaryOperation(new BearingOperation());
+        state.addPrimaryOperation(new BearingOperation(0, "Turn Toward Backdrop"));
         state.addPrimaryOperation(new DriveForDistanceOperation(24, 50, "Go to Interim Position"));
 
         //Spike Mark 3
-        state.addPrimaryOperation(new StrafeRightForDistanceOperation(12, 50, "Line up with Spike Mark 3"));
         state.addPrimaryOperation(new DriveForDistanceOperation(44- RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 3"));
+        state.addPrimaryOperation(new StrafeRightForDistanceOperation(12, 50, "Line up with Spike Mark 3"));
         state.addPrimaryOperation(new DriveForDistanceOperation(8, -50, "Back away"));
-        state.addPrimaryOperation(new BearingOperation());
+        state.addPrimaryOperation(new BearingOperation(0, "Turn Toward Backdrop"));
         state.addPrimaryOperation(new DriveForDistanceOperation(36, 50, "Go to Interim Position"));
         states.add(state);
 
+        //position should be x = 36, y = 36
+
         state = new State("Approach Backdrop");
-        //raise cone to high level
-        state.addPrimaryOperation(new FollowTrajectory(
-                field.getTurnaroundTrajectory(),
-                "Slide over"
-        ));
-        state.addPrimaryOperation(new FollowTrajectory(
-                field.getDeliverLoadedConeTrajectory(),
-                "Get to delivery point of loaded cone"
-        ));
+        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.High, "Raise Arm"));
+        //Spike Mark 1
+        state.addPrimaryOperation(new StrafeLeftForDistanceOperation(8, 10, "Slide Left"));
+        state.addPrimaryOperation(new DriveForDistanceOperation(15, 10, "Approach Claw to BackDrop"));
+
+        //Spike Mark 2
+        state.addPrimaryOperation(new DriveForDistanceOperation(15, 10, "Approach Claw to BackDrop"));
+
+        //Spike Mark 3
+        state.addPrimaryOperation(new StrafeRightForDistanceOperation(8, 10, "Slide Right"));
+        state.addPrimaryOperation(new DriveForDistanceOperation(15, 10, "Approach Claw to BackDrop"));
+
+        state.addPrimaryOperation(new ArmOperation());
         states.add(state);
 
-        state = new State("Deliver loaded cone");
-        states.add(state);
-
-        state = new State("Reach stack");
-        state.addPrimaryOperation(new FollowTrajectory(
-                field.getRetractFromLoadedConeDeliveryTrajectory(),
-                "Retract from loaded cone delivery"
-        ));
-        state.addPrimaryOperation(new FollowTrajectory(
-                field.getPickupConeTrajectory(),
-                "Reach pickup area"
-        ));
-        //state.addPrimaryOperation(new WinchOperation(robot.getWinch(), robot.getFourBar(), WinchOperation.Type.Ground, "Reach stack level"));
+        state = new State("Navigate to Scoring Area");
+        //Spike Mark 1
+        state.addPrimaryOperation(new StrafeRightForDistanceOperation(32, 50, "Navigate"));
+        //Spike Mark 2
+        state.addPrimaryOperation(new StrafeRightForDistanceOperation(24, 50, "Navigate"));
+        //Spike Mark 3
+        state.addPrimaryOperation(new StrafeRightForDistanceOperation(16, 50, "Navigate"));
         states.add(state);
 
         state = new State("Grab second cone");

@@ -28,7 +28,6 @@ public class Arm {
         this.elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //initialize our wrist motor
-        this.wrist = hardwareMap.get(DcMotor.class, RobotConfig.WRIST);
         this.elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -53,7 +52,7 @@ public class Arm {
         this.wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.shoulder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setWristPosition(RobotConfig.WRIST_INITIAL_POSITION);
+        //setWristPosition(RobotConfig.WRIST_INITIAL_POSITION);
         setElbowPosition(0);
         setShoulderPosition(0);
     }
@@ -107,28 +106,12 @@ public class Arm {
 
     public void setPositions(ArmOperation.Type type) {
         switch (type) {
-            case Release: {
-                releaseWrist();
-                break;
-            }
             case Pickup: {
                 setPositions(RobotConfig.ARM_PICKUP_POSITION);
                 break;
             }
-            case InterimDeposit: {
-                setPositions(RobotConfig.ARM_INTERIM_DEPOSIT_POSITION);
-                break;
-            }
-            case InterimPickup: {
-                setPositions(RobotConfig.ARM_INTERIM_PICKUP_POSITION);
-                break;
-            }
             case High: {
-                setPositions(RobotConfig.ARM_HIGH_JUNCTION_POSITION);
-                break;
-            }
-            case ObjectFinder: {
-                setPositions(RobotConfig.OBJECT_FINDER_POSITION);
+                setPositions(RobotConfig.ARM_DELIVERY_POSITION);
                 break;
             }
             default : {
@@ -139,7 +122,7 @@ public class Arm {
 
     private void setPositions(ArmPosition armPosition) {
         rotator.setPosition(armPosition.getRotator());
-        setWristPosition(armPosition.getWrist());
+        //setWristPosition(armPosition.getWrist());
         setShoulderPosition(armPosition.getShoulder());
         setElbowPosition(armPosition.getElbow());
     }

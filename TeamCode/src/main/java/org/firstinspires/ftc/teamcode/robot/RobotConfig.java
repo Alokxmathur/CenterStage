@@ -14,9 +14,21 @@
 
     public static final String SHOULDER = "shoulder";
     public static final String ELBOW = "elbow";
+    public static final String ROTATOR = "rotator";
+    public static final String CLAW = "claw";
+    public static final double MAX_WRIST_POWER = 1;
+    public static final double ACCEPTABLE_WRIST_ERROR = 10;
+    public static final int WRIST_RELEASED_POSITION = 1;
+    public static final int WRIST_INITIAL_POSITION = 0;
+    public static final double CLAW_OPEN_POSITION = 0;
+    public static final double CLAW_INCREMENT = 5;
+    public static final double CLAW_CLENCH_POSITION = 70;
+    public static final double ROTATOR_TURNED_OVER_POSITION = 180;
+    public static final double ROTATOR_INCREMENT = 5;
 
     //Robot center from back is five and half inches away
     public static double ROBOT_CENTER_FROM_BACK = 5.5 * Field.MM_PER_INCH;
+    public static final double ROTATOR_INITIAL_POSITION = 0;
     //Robot center from held cone is three inches farther than the rear of the robot
     public static double ROBOT_CENTER_FROM_HELD_CONE = ROBOT_CENTER_FROM_BACK + 3*Field.MM_PER_INCH;
     //Robot center from front is four and a half inches
@@ -41,7 +53,7 @@
     public static final int SHOULDER_INCREMENT = 10;
 
     public static final ArmPosition ARM_PICKUP_POSITION = new ArmPosition(0, 0);
-    public static final ArmPosition ARM_HIGH_JUNCTION_POSITION = new ArmPosition(800, 140);
+    public static final ArmPosition ARM_DELIVERY_POSITION = new ArmPosition(800, 140);
 
     public static final String INOUT_TAKE_MOTOR = "inoutMotor";
     public static final double MAX_INOUT_SPEED = 1.0;
