@@ -97,10 +97,14 @@ public abstract class AutonomousHelper extends OpMode {
                 Match.log("Set VSLAM starting pose");
             }
             else {
+                /*
                 double xError = robot.getCurrentX() / Field.MM_PER_INCH - field.getStartingPose().getX();
                 double yError = robot.getCurrentY() / Field.MM_PER_INCH - field.getStartingPose().getY();
                 double bearingError = (Math.toDegrees(robot.getCurrentTheta())
                         - Math.toDegrees(field.getStartingPose().getHeading())) % 360;
+
+                 */
+                /*
                 if ((Math.abs(xError) > RobotConfig.ALLOWED_POSITIONAL_ERROR)
                         || (Math.abs(yError) > RobotConfig.ALLOWED_POSITIONAL_ERROR
                         || (Math.abs(bearingError) > RobotConfig.ALLOWED_BEARING_ERROR))) {
@@ -120,6 +124,9 @@ public abstract class AutonomousHelper extends OpMode {
                 } else {
                     match.updateTelemetry(telemetry, "Ready");
                 }
+
+                 */
+                match.updateTelemetry(telemetry, "Ready");
             }
         }
         else {
