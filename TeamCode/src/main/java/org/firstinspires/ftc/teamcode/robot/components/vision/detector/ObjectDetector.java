@@ -20,6 +20,8 @@ import java.util.Map;
  */
 public class ObjectDetector {
 
+    boolean gamePad1A, gamePad1B, gamePad1Y, gamePad1X, gamePad2A, gamePad2B, gamePad2Y, gamePad2X;
+
     /**
      * Manage Object detection based on game pad buttons
      *
@@ -35,35 +37,69 @@ public class ObjectDetector {
      * @param
      */
     public void manageObjectDetection(Gamepad gamePad1, Gamepad gamePad2) {
+        /*
         //disable all objects to start with
         for (DetectableObject detectableObject: detectableObjects.values()) {
             detectableObject.disable();
         }
+         */
         //enable objects based on the buttons pressed
-        if (gamePad1.a) {
+        if (gamePad1.a && !gamePad1A) {
                 this.detectableObjects.get(ObjectType.GreenPixel).toggleDisabled();
+                gamePad1A = true;
         }
-        if (gamePad1.b) {
+        else {
+            gamePad1A = false;
+        }
+        if (gamePad1.b && !gamePad1B) {
             this.detectableObjects.get(ObjectType.RedProp).toggleDisabled();
+            gamePad1B = true;
         }
-        if (gamePad1.y) {
+        else {
+            gamePad1B = false;
+        }
+        if (gamePad1.y && !gamePad1Y) {
             this.detectableObjects.get(ObjectType.YellowPixel).toggleDisabled();
+            gamePad1Y = true;
         }
-        if (gamePad1.x) {
+        else {
+            gamePad1Y = false;
+        }
+        if (gamePad1.x && !gamePad1X) {
             this.detectableObjects.get(ObjectType.BlueProp).toggleDisabled();
+            gamePad1X = true;
+        }
+        else {
+            gamePad1X = false;
         }
 
-        if (gamePad2.a) {
+        if (gamePad2.a && !gamePad2A) {
             findObjectAtCrossHair = !findObjectAtCrossHair;
+            gamePad2A = true;
         }
-        if (gamePad2.b) {
+        else {
+            gamePad2A = false;
+        }
+        if (gamePad2.b && !gamePad2B) {
             this.detectableObjects.get(ObjectType.RedTape).toggleDisabled();
+            gamePad2B = true;
         }
-        if (gamePad2.y) {
+        else {
+            gamePad2B = false;
+        }
+        if (gamePad2.y && !gamePad2Y) {
             this.detectableObjects.get(ObjectType.WhitePixel).toggleDisabled();
+            gamePad2Y = true;
         }
-        if (gamePad2.x) {
+        else {
+            gamePad2Y = false;
+        }
+        if (gamePad2.x && !gamePad2X) {
             this.detectableObjects.get(ObjectType.BlueTape).toggleDisabled();
+            gamePad2X = true;
+        }
+        else {
+            gamePad2X = false;
         }
 
     }

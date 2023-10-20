@@ -46,12 +46,14 @@ public class DetectorPipeline extends OpenCvPipeline {
             //Draw a marker at the cross hair point
             Imgproc.drawMarker(inputImageBGR, objectDetector.getCrossHairPoint(), RED, Imgproc.MARKER_CROSS, 100);
 
-
             //now go through each object to paint contours etc.
             for (ObjectDetector.ObjectType objectType: detectedObjects.keySet()) {
                 DetectableObject detectableObject = detectedObjects.get(objectType);
                 if (!detectableObject.isDisabled()) {
-                    if (detectableObject.getType() != ObjectDetector.ObjectType.CrossHair) {
+                    if (detectableObject.getType() == ObjectDetector.ObjectType.CrossHair) {
+                        Imgproc.drawContours(inputImageBGR, detectableObject.getFoundObjects(), -1, GREEN, 5);
+                    }
+                    else {
                         Imgproc.drawContours(inputImageBGR, detectableObject.getFoundObjects(), -1, SILVER, 5);
                     }
                     MatOfPoint largestContour = detectableObject.getLargestObject();
@@ -127,12 +129,7 @@ public class DetectorPipeline extends OpenCvPipeline {
     }
 
     public void manageVisibility(Gamepad gamepad1, Gamepad gamepad2) {
-        if (gamepad2.a) {
-            showMean = !showMean;
-        }
-        else {
-            objectDetector.manageObjectDetection(gamepad1, gamepad2);
-        }
+        objectDetector.manageObjectDetection(gamepad1, gamepad2);
     }
 
     public String getStatus() {
