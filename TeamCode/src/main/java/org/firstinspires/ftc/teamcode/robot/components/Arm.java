@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.robot.operations.ArmOperation;
 import java.util.Locale;
 
 public class Arm {
-    DcMotor shoulder, elbow, wrist;
+    DcMotor shoulder, elbow;
     Servo rotator, claw;
     int lastShoulderPosition, lastElbowPosition, lastWristPosition;
 
@@ -43,13 +43,13 @@ public class Arm {
     public void ensureMotorDirections() {
         this.elbow.setDirection(DcMotorSimple.Direction.REVERSE);
         this.shoulder.setDirection(DcMotorSimple.Direction.FORWARD);
-        this.wrist.setDirection(DcMotorSimple.Direction.REVERSE);
+        //this.wrist.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void assumeInitialPosition() {
         this.rotator.setPosition(RobotConfig.ROTATOR_INITIAL_POSITION);
         this.claw.setPosition(RobotConfig.CLAW_OPEN_POSITION);
-        this.wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //this.wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.shoulder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //setWristPosition(RobotConfig.WRIST_INITIAL_POSITION);
@@ -187,29 +187,29 @@ public class Arm {
      * Set the wrist motor position
      * @param position
      */
-    public void setWristPosition(int position) {
+    /*public void setWristPosition(int position) {
         this.wrist.setTargetPosition(position);
         this.wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         this.wrist.setPower(RobotConfig.MAX_WRIST_POWER);
         lastWristPosition = position;
-    }
+    }*/
 
     /**
      * Retain wrist in its current position
      */
-    public void retainWrist() {
+    /*public void retainWrist() {
         setWristPosition(lastWristPosition);
-    }
+    }*/
 
     /**
      * Set the wrist power
      * @param power
      */
-    public void setWristPower(double power) {
+    /*public void setWristPower(double power) {
         this.wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.wrist.setPower(power);
         lastWristPosition = wrist.getCurrentPosition();
-    }
+    }*/
 
     /**
      * Returns true if wrist, elbow and shoulder are within range
@@ -217,7 +217,7 @@ public class Arm {
      */
     public boolean isWithinRange() {
         Match.log(getStatus());
-        return shoulderIsWithinRange() && elbowIsWithinRange() && wristIsWithinRange();
+        return shoulderIsWithinRange() && elbowIsWithinRange();
     }
 
     private boolean shoulderIsWithinRange() {
@@ -228,18 +228,6 @@ public class Arm {
         return Math.abs(elbow.getTargetPosition() - elbow.getCurrentPosition()) <= RobotConfig.ACCEPTABLE_ELBOW_ERROR;
     }
 
-    private boolean wristIsWithinRange() {
-        return Math.abs(wrist.getTargetPosition() - wrist.getCurrentPosition()) <= RobotConfig.ACCEPTABLE_WRIST_ERROR;
-    }
-
-
-    public void releaseWrist() {
-        setWristPosition(RobotConfig.WRIST_RELEASED_POSITION);
-    }
-    public void foldWrist() {
-        setWristPosition(RobotConfig.WRIST_INITIAL_POSITION);
-    }
-
     /**
      * Returns the status of the arm
      * Reports the current position, target position and power of the shoulder,
@@ -248,10 +236,10 @@ public class Arm {
      * @return
      */
     public String getStatus() {
-        return String.format(Locale.getDefault(), "S:%d->%d@%.2f, E:%d->%d@%.2f, W:%d->%d@%.2f, R:%.3f, C:%.3f",
+        return String.format(Locale.getDefault(), "S:%d->%d@%.2f, E:%d->%d@%.2f, R:%.3f, C:%.3f",
                 shoulder.getCurrentPosition(), shoulder.getTargetPosition(), shoulder.getPower(),
                 elbow.getCurrentPosition(), elbow.getTargetPosition(), elbow.getPower(),
-                wrist.getCurrentPosition(), wrist.getTargetPosition(), wrist.getPower(),
+                //wrist.getCurrentPosition(), wrist.getTargetPosition(), wrist.getPower(),
                 rotator.getPosition(), claw.getPosition());
     }
 }

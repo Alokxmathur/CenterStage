@@ -20,9 +20,9 @@
     public static final double ACCEPTABLE_WRIST_ERROR = 10;
     public static final int WRIST_RELEASED_POSITION = 1;
     public static final int WRIST_INITIAL_POSITION = 0;
-    public static final double CLAW_OPEN_POSITION = 0;
+    public static final double CLAW_OPEN_POSITION = 25;
     public static final double CLAW_INCREMENT = 5;
-    public static final double CLAW_CLENCH_POSITION = 70;
+    public static final double CLAW_CLENCH_POSITION = 50;
     public static final double ROTATOR_TURNED_OVER_POSITION = 180;
     public static final double ROTATOR_INCREMENT = 5;
 
