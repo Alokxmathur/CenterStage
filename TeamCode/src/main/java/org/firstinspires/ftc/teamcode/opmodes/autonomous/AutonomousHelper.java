@@ -8,12 +8,10 @@ import org.firstinspires.ftc.teamcode.game.Alliance;
 import org.firstinspires.ftc.teamcode.game.Field;
 import org.firstinspires.ftc.teamcode.game.Match;
 import org.firstinspires.ftc.teamcode.robot.Robot;
-import org.firstinspires.ftc.teamcode.robot.RobotConfig;
 import org.firstinspires.ftc.teamcode.robot.operations.State;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * This class implements the methods to make autonomous happen
@@ -82,45 +80,7 @@ public abstract class AutonomousHelper extends OpMode {
         else if (robot.fullyInitialized()) {
             Field.SpikePosition spikePosition = robot.getSpikePosition();
             match.setSpikePosition(spikePosition);
-            if (!robot.havePosition()) {
-                telemetry.addData("State", "Waiting for VSLAM.");
-                telemetry.addData("Position", robot.getVSLAMStatus());
-                telemetry.addData("Signal", String.valueOf(match.getSignalNumber()));
-                //Match.log("No position from VSLAM yet");
-            }
-
-            else {
-                /*
-                double xError = robot.getCurrentX() / Field.MM_PER_INCH - field.getStartingPose().getX();
-                double yError = robot.getCurrentY() / Field.MM_PER_INCH - field.getStartingPose().getY();
-                double bearingError = (Math.toDegrees(robot.getCurrentTheta())
-                        - Math.toDegrees(field.getStartingPose().getHeading())) % 360;
-
-                 */
-                /*
-                if ((Math.abs(xError) > RobotConfig.ALLOWED_POSITIONAL_ERROR)
-                        || (Math.abs(yError) > RobotConfig.ALLOWED_POSITIONAL_ERROR
-                        || (Math.abs(bearingError) > RobotConfig.ALLOWED_BEARING_ERROR))) {
-                    String positionError = String.format(Locale.getDefault(),
-                            "Position Error, restart app:%s v %s, xErr:%.2f, yErr:%.2f, hErr:%.2fv%.2f=%.2f",
-                            field.getStartingPose(),
-                            robot.getPosition(),
-                            xError,
-                            yError,
-                            Math.toDegrees(robot.getCurrentTheta()),
-                            Math.toDegrees(field.getStartingPose().getHeading()),
-                            bearingError);
-                    telemetry.addData("State", positionError);
-                    telemetry.addData("Position", robot.getVSLAMStatus());
-                    telemetry.addData("Signal", String.valueOf(match.getSignalNumber()));
-                    //robot.setInitialPose(field.getStartingPose());
-                } else {
-                    match.updateTelemetry(telemetry, "Ready");
-                }
-
-                 */
-                match.updateTelemetry(telemetry, "Ready");
-            }
+            match.updateTelemetry(telemetry, "Ready");
         }
         else {
             telemetry.addData("Status", "Cameras initializing, please wait");
