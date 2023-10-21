@@ -52,8 +52,8 @@
     public static final double DRIVERS_SHOULDER_POWER = 0.5;
     public static final int SHOULDER_INCREMENT = 10;
 
-    public static final ArmPosition ARM_PICKUP_POSITION = new ArmPosition(0, 0);
-    public static final ArmPosition ARM_DELIVERY_POSITION = new ArmPosition(800, 140);
+    public static final ArmPosition ARM_PICKUP_POSITION = new ArmPosition(0, 0, 0, 0);
+    public static final ArmPosition ARM_DEPOSIT_POSITION = new ArmPosition(800, 140, .5, .5);
 
     public static final String INOUT_TAKE_MOTOR = "inoutMotor";
     public static final double MAX_INOUT_SPEED = 1.0;
