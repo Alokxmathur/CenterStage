@@ -110,8 +110,8 @@ public class Arm {
                 setPositions(RobotConfig.ARM_PICKUP_POSITION);
                 break;
             }
-            case High: {
-                setPositions(RobotConfig.ARM_DELIVERY_POSITION);
+            case Deposit: {
+                setPositions(RobotConfig.ARM_DEPOSIT_POSITION);
                 break;
             }
             default : {

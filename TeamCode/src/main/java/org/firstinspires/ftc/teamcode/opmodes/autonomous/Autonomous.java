@@ -23,7 +23,7 @@ public abstract class Autonomous extends AutonomousHelper {
     public void start() {
         super.start();
         State state = new State("Deliver Purple Pixel");
-        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.High, "Raise Arm"));
+        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Deposit, "Raise Arm"));
         //Spike Mark 1
         /*if () {
             state.addPrimaryOperation(new DriveForDistanceOperation(44 - RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 1"));
