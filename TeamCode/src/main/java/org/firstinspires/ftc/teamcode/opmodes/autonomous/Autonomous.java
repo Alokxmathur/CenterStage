@@ -46,7 +46,7 @@ public abstract class Autonomous extends AutonomousHelper {
         //position should be x = 36, y = 36
 
         state = new State("Approach Backdrop");
-        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.High, "Raise Arm"));
+        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Deposit, "Raise Arm to deposit"));
         //Spike Mark 1
         state.addPrimaryOperation(new StrafeLeftForDistanceOperation(8, 10, "Slide Left"));
         state.addPrimaryOperation(new DriveForDistanceOperation(15, 10, "Approach Claw to BackDrop"));
