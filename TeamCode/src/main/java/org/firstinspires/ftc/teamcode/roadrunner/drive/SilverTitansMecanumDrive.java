@@ -29,7 +29,6 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequenceRunner;
 import org.firstinspires.ftc.teamcode.roadrunner.util.LynxModuleUtil;
 import org.firstinspires.ftc.teamcode.robot.RobotConfig;
-import org.firstinspires.ftc.teamcode.robot.components.vision.VslamCamera;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,7 +75,7 @@ public class SilverTitansMecanumDrive extends MecanumDrive {
 
     private VoltageSensor batteryVoltageSensor;
 
-    public SilverTitansMecanumDrive(HardwareMap hardwareMap, VslamCamera camera) {
+    public SilverTitansMecanumDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
@@ -117,7 +116,7 @@ public class SilverTitansMecanumDrive extends MecanumDrive {
 
         // TODO: if desired, use setLocalizer() to change the localization method
         // for instance, setLocalizer(new ThreeTrackingWheelLocalizer(...));
-        //Disabled setting localizer to use VSLAM since T265 Camera is not allowed this year
+        //Disabled setting localizer to use VSLAM since T265 Camera is not allowed any more
         //this.setLocalizer(camera);
 
         trajectorySequenceRunner = new TrajectorySequenceRunner(follower, HEADING_PID);

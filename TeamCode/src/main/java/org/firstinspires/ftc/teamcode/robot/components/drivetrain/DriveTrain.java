@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.util.RobotLog;
 import org.firstinspires.ftc.teamcode.game.Match;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SilverTitansDriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SilverTitansMecanumDrive;
-import org.firstinspires.ftc.teamcode.robot.components.vision.VslamCamera;
 import org.firstinspires.ftc.teamcode.robot.operations.BearingOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.DriveForDistanceOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.DriveToPositionOperation;
@@ -55,8 +54,8 @@ public class DriveTrain extends SilverTitansMecanumDrive {
     }
 
 
-    public DriveTrain(HardwareMap hardwareMap, VslamCamera camera) {
-        super(hardwareMap, camera);
+    public DriveTrain(HardwareMap hardwareMap) {
+        super(hardwareMap);
     }
 
     /** Set power of left front motor

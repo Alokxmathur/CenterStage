@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.robot.components.vision.detector;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.game.Alliance;
+import org.firstinspires.ftc.teamcode.game.Field;
 import org.firstinspires.ftc.teamcode.robot.RobotConfig;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
@@ -112,6 +114,30 @@ public class ObjectDetector {
 
     public Point getCrossHairPoint() {
         return crossHairPoint;
+    }
+
+    public Field.SpikePosition getSpikePosition(Alliance.Color alliance) {
+        DetectableObject detectableObject = null;
+        if (alliance == Alliance.Color.RED) {
+            detectableObject = detectableObjects.get(ObjectType.RedProp);
+        }
+        else {
+            detectableObject = detectableObjects.get(ObjectType.BlueProp);
+        }
+        if (detectableObject == null) {
+            return Field.SpikePosition.Middle;
+        }
+        else {
+            if (detectableObject.getXPositionOfLargestObject() > 1000) {
+                return Field.SpikePosition.Right;
+            }
+            else if (detectableObject.getXPositionOfLargestObject() > 700) {
+                return  Field.SpikePosition.Middle;
+            }
+            else {
+                return Field.SpikePosition.Left;
+            }
+        }
     }
 
     public enum ObjectType {

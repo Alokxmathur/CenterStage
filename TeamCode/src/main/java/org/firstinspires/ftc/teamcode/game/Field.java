@@ -27,6 +27,9 @@ public class Field {
     public enum StartingPosition {
         Left, Right
     }
+    public enum SpikePosition {
+        Left, Middle, Right
+    }
 
     public static final Pose2d redLeftStartingPose = new Pose2d(
             (-TILE_WIDTH - RobotConfig.ROBOT_WIDTH / 2 - 0.25 * Field.MM_PER_INCH) / MM_PER_INCH,

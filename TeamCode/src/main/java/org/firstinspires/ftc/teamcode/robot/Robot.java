@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.game.Field;
 import org.firstinspires.ftc.teamcode.game.Match;
 import org.firstinspires.ftc.teamcode.robot.components.Arm;
@@ -16,8 +15,6 @@ import org.firstinspires.ftc.teamcode.robot.components.InOutTake;
 import org.firstinspires.ftc.teamcode.robot.components.LED;
 import org.firstinspires.ftc.teamcode.robot.components.drivetrain.DriveTrain;
 import org.firstinspires.ftc.teamcode.robot.components.vision.detector.ObjectDetectorWebcam;
-import org.firstinspires.ftc.teamcode.robot.components.vision.VslamCamera;
-import org.firstinspires.ftc.teamcode.robot.operations.ArmOperation;
 import org.firstinspires.ftc.teamcode.robot.operations.Operation;
 import org.firstinspires.ftc.teamcode.robot.operations.OperationThread;
 
@@ -89,7 +86,6 @@ public class Robot {
     InOutTake inOutTake;
 
     ObjectDetectorWebcam webcam;
-    VslamCamera vslamCamera;
 
     boolean everythingButCamerasInitialized = false;
 
@@ -137,21 +133,10 @@ public class Robot {
         //Create our drive train
         telemetry.addData("Status", "Initializing drive train, please wait");
         telemetry.update();
-        this.driveTrain = new DriveTrain(hardwareMap, vslamCamera);
+        this.driveTrain = new DriveTrain(hardwareMap);
     }
 
     public void initCameras() {
-        //initialize Vslam camera
-        /*
-
-        Not initialising VSLAM as it is not allowed this year
-        Match.log("Initializing VSLAM");
-        telemetry.addData("Status", "Initializing VSLAM, please wait");
-        telemetry.update();
-        this.vslamCamera = new VslamCamera(hardwareMap);
-
-         */
-
         //initialize webcam
         Match.log("Initializing Webcam");
         telemetry.addData("Status", "Initializing Webcam, please wait");
@@ -399,5 +384,9 @@ public class Robot {
 
     public ObjectDetectorWebcam getWebcam() {
         return this.webcam;
+    }
+
+    public Field.SpikePosition getSpikePosition() {
+        return webcam.getSpikePosition();
     }
 }

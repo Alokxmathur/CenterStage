@@ -32,7 +32,7 @@ public class Match {
     private Date teleopStartTime = new Date();
     private Alliance.Color alliance;
 
-    private int signalNumber;
+    private Field.SpikePosition spikePosition;
 
     private Field.StartingPosition startingPosition;
     private String trajectoryError = "";
@@ -106,7 +106,7 @@ public class Match {
 
         if (robot != null && field != null) {
             // Send telemetry message to signify robot context;
-            telemetry.addData("State", status + ", signal: " + getSignalNumber());
+            telemetry.addData("State", status + ", spike: " + getSpikePosition());
             telemetry.addData("Position", robot.getPosition());
             telemetry.addData("Drive", robot.getDriveTrain().getStatus());
             telemetry.addData("LED", robot.getLEDStatus().toString());
@@ -189,7 +189,7 @@ public class Match {
         field.strokeLine(x1, y1, px, py);
         field.strokeLine(x2, y2, px, py);
 
-        packet.put("State", status + ", signal: " + getSignalNumber());
+        packet.put("State", status + ", spike: " + getSpikePosition());
         packet.put("Position", robot.getPosition());
         packet.put("Drive", robot.getDriveTrain().getStatus());
         packet.put("LED", robot.getLEDStatus().toString());
@@ -209,12 +209,12 @@ public class Match {
         this.trajectoryError = lastError;
     }
 
-    public int getSignalNumber() {
-        return signalNumber;
+    public Field.SpikePosition getSpikePosition() {
+        return spikePosition;
     }
 
-    public void setSignalNumber(int signalNumber) {
-        this.signalNumber = signalNumber;
+    public void setSpikePosition(Field.SpikePosition spikePosition) {
+        this.spikePosition = spikePosition;
     }
 
     public void setLed(RevBlinkinLedDriver.BlinkinPattern pattern) {

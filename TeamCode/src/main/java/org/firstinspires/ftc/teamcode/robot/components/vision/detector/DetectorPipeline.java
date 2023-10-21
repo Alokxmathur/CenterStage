@@ -4,6 +4,8 @@ package org.firstinspires.ftc.teamcode.robot.components.vision.detector;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.game.Field;
+import org.firstinspires.ftc.teamcode.game.Match;
 import org.firstinspires.ftc.teamcode.robot.RobotConfig;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
@@ -139,5 +141,9 @@ public class DetectorPipeline extends OpenCvPipeline {
                 crossHairHSV[0], crossHairHSV[1], crossHairHSV[2],
                 crossHairColor.val[0], crossHairColor.val[1], crossHairColor.val[2]);
         //return objectDetector.getStatus();
+    }
+
+    public Field.SpikePosition getSpikePosition() {
+        return objectDetector.getSpikePosition(Match.getInstance().getAlliance());
     }
 }

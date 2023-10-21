@@ -57,15 +57,12 @@ public class ArmOperation extends Operation {
     public void startOperation() {
         switch (this.type) {
             case Pickup:
-            {
-                arm.setPositions(type);
-                break;
-            }
             case Deposit:
             {
                 arm.setPositions(type);
                 break;
             }
+
             case Open:
             {
                 arm.openClaw();

@@ -80,22 +80,15 @@ public abstract class AutonomousHelper extends OpMode {
             telemetry.addData("Position", robot.getVSLAMStatus());
         }
         else if (robot.fullyInitialized()) {
-            //int signalNumber = robot.getSignalNumber();
-            //match.setSignalNumber(signalNumber);
+            Field.SpikePosition spikePosition = robot.getSpikePosition();
+            match.setSpikePosition(spikePosition);
             if (!robot.havePosition()) {
                 telemetry.addData("State", "Waiting for VSLAM.");
                 telemetry.addData("Position", robot.getVSLAMStatus());
                 telemetry.addData("Signal", String.valueOf(match.getSignalNumber()));
                 //Match.log("No position from VSLAM yet");
             }
-            else if (!cameraPoseSet) {
-                telemetry.addData("State", "Setting position, please wait");
-                telemetry.addData("Position", robot.getVSLAMStatus());
-                telemetry.addData("Signal", String.valueOf(match.getSignalNumber()));
-                robot.setInitialPose(field.getStartingPose());
-                cameraPoseSet = true;
-                Match.log("Set VSLAM starting pose");
-            }
+
             else {
                 /*
                 double xError = robot.getCurrentX() / Field.MM_PER_INCH - field.getStartingPose().getX();
