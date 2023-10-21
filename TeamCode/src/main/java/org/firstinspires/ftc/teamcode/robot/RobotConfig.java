@@ -16,15 +16,12 @@
     public static final String ELBOW = "elbow";
     public static final String ROTATOR = "rotator";
     public static final String CLAW = "claw";
-    public static final double MAX_WRIST_POWER = 1;
-    public static final double ACCEPTABLE_WRIST_ERROR = 10;
-    public static final int WRIST_RELEASED_POSITION = 1;
-    public static final int WRIST_INITIAL_POSITION = 0;
-    public static final double CLAW_OPEN_POSITION = 25;
-    public static final double CLAW_INCREMENT = 5;
-    public static final double CLAW_CLENCH_POSITION = 50;
-    public static final double ROTATOR_TURNED_OVER_POSITION = 180;
-    public static final double ROTATOR_INCREMENT = 5;
+
+    public static final double CLAW_OPEN_POSITION = .25;
+    public static final double CLAW_INCREMENT = .05;
+    public static final double CLAW_CLENCH_POSITION = .50;
+    public static final double ROTATOR_TURNED_OVER_POSITION = .180;
+    public static final double ROTATOR_INCREMENT = .05;
 
     //Robot center from back is five and half inches away
     public static double ROBOT_CENTER_FROM_BACK = 5.5 * Field.MM_PER_INCH;
@@ -33,7 +30,6 @@
     public static double ROBOT_CENTER_FROM_HELD_CONE = ROBOT_CENTER_FROM_BACK + 3*Field.MM_PER_INCH;
     //Robot center from front is four and a half inches
     public static double ROBOT_CENTER_FROM_FRONT = 4.5 * Field.MM_PER_INCH;
-    public static double ROBOT_CENTER_FROM_VSLAM = 3.25 * Field.MM_PER_INCH;
     public static final double ROBOT_WIDTH = 14.5 * Field.MM_PER_INCH;
 
     public static final double ROBOT_LENGTH = ROBOT_CENTER_FROM_BACK + ROBOT_CENTER_FROM_FRONT;
