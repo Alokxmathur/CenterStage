@@ -14,7 +14,7 @@ import java.util.Locale;
 public class Arm {
     DcMotor shoulder, elbow;
     Servo rotator, claw;
-    int lastShoulderPosition, lastElbowPosition, lastWristPosition;
+    boolean shoulderRetained, elbowRetained;
 
     public Arm(HardwareMap hardwareMap) {
         //initialize our shoulder motor
@@ -135,14 +135,16 @@ public class Arm {
         this.shoulder.setTargetPosition(position);
         this.shoulder.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         this.shoulder.setPower(RobotConfig.MAX_SHOULDER_POWER);
-        lastShoulderPosition = position;
     }
 
     /**
      * Retain shoulder in its current position
      */
     public void retainShoulder() {
-        setShoulderPosition(shoulder.getCurrentPosition());
+        if (!shoulderRetained) {
+            setShoulderPosition(shoulder.getCurrentPosition());
+            shoulderRetained = true;
+        }
     }
 
     /**
@@ -152,7 +154,7 @@ public class Arm {
     public void setShoulderPower(double power) {
         this.shoulder.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.shoulder.setPower(power);
-        lastShoulderPosition = shoulder.getCurrentPosition();
+        shoulderRetained = false;
     }
 
     /**
@@ -163,14 +165,17 @@ public class Arm {
         this.elbow.setTargetPosition(position);
         this.elbow.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         this.elbow.setPower(RobotConfig.MAX_ELBOW_POWER);
-        lastElbowPosition = position;
+        elbowRetained = false;
     }
 
     /**
      * Retain elbow in its current position
      */
     public void retainElbow() {
-        setElbowPosition(elbow.getCurrentPosition());
+        if (!elbowRetained) {
+            setElbowPosition(elbow.getCurrentPosition());
+            elbowRetained = true;
+        }
     }
 
     /**
@@ -180,7 +185,7 @@ public class Arm {
     public void setElbowPower(double power) {
         this.elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.elbow.setPower(power);
-        lastElbowPosition = elbow.getCurrentPosition();
+        elbowRetained = false;
     }
 
     /**
@@ -212,7 +217,7 @@ public class Arm {
     }*/
 
     /**
-     * Returns true if wrist, elbow and shoulder are within range
+     * Returns true if elbow and shoulder are within range
      * @return
      */
     public boolean isWithinRange() {
