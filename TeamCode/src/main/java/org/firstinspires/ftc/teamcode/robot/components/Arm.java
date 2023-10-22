@@ -27,10 +27,6 @@ public class Arm {
         this.elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        //initialize our wrist motor
-        this.elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        this.elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         //and the rotator
         this.rotator = hardwareMap.get(Servo.class, RobotConfig.ROTATOR);
         //and the claw
@@ -122,7 +118,6 @@ public class Arm {
 
     private void setPositions(ArmPosition armPosition) {
         rotator.setPosition(armPosition.getRotator());
-        //setWristPosition(armPosition.getWrist());
         setShoulderPosition(armPosition.getShoulder());
         setElbowPosition(armPosition.getElbow());
     }
@@ -165,7 +160,6 @@ public class Arm {
         this.elbow.setTargetPosition(position);
         this.elbow.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         this.elbow.setPower(RobotConfig.MAX_ELBOW_POWER);
-        elbowRetained = false;
     }
 
     /**
@@ -187,34 +181,6 @@ public class Arm {
         this.elbow.setPower(power);
         elbowRetained = false;
     }
-
-    /**
-     * Set the wrist motor position
-     * @param position
-     */
-    /*public void setWristPosition(int position) {
-        this.wrist.setTargetPosition(position);
-        this.wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        this.wrist.setPower(RobotConfig.MAX_WRIST_POWER);
-        lastWristPosition = position;
-    }*/
-
-    /**
-     * Retain wrist in its current position
-     */
-    /*public void retainWrist() {
-        setWristPosition(lastWristPosition);
-    }*/
-
-    /**
-     * Set the wrist power
-     * @param power
-     */
-    /*public void setWristPower(double power) {
-        this.wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        this.wrist.setPower(power);
-        lastWristPosition = wrist.getCurrentPosition();
-    }*/
 
     /**
      * Returns true if elbow and shoulder are within range
@@ -244,7 +210,6 @@ public class Arm {
         return String.format(Locale.getDefault(), "S:%d->%d@%.2f, E:%d->%d@%.2f, R:%.3f, C:%.3f",
                 shoulder.getCurrentPosition(), shoulder.getTargetPosition(), shoulder.getPower(),
                 elbow.getCurrentPosition(), elbow.getTargetPosition(), elbow.getPower(),
-                //wrist.getCurrentPosition(), wrist.getTargetPosition(), wrist.getPower(),
                 rotator.getPosition(), claw.getPosition());
     }
 }

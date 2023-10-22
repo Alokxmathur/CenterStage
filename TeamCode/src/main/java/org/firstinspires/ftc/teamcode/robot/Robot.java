@@ -328,7 +328,7 @@ public class Robot {
                 this.arm.retainShoulder();
             }
             if (Math.abs(gamePad2.right_stick_y) > 0.05) {
-                this.arm.setElbowPower(Math.pow(gamePad2.right_stick_y, 3));
+                this.arm.setElbowPower(Math.pow(gamePad2.right_stick_y, 7));
             } else {
                     this.arm.retainElbow();
             }
