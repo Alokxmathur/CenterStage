@@ -148,7 +148,7 @@ public class Arm {
      */
     public void setShoulderPower(double power) {
         this.shoulder.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        this.shoulder.setPower(power);
+        this.shoulder.setPower(power*RobotConfig.MAX_SHOULDER_POWER);
         shoulderRetained = false;
     }
 

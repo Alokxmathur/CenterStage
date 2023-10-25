@@ -43,7 +43,7 @@
     public static final int ELBOW_INCREMENT = 2;
 
     public static final int ACCEPTABLE_SHOULDER_ERROR = 10;
-    public static final double MAX_SHOULDER_POWER = 0.25;
+    public static final double MAX_SHOULDER_POWER = 0.75;
     public static final int SHOULDER_INCREMENT = 10;
 
     public static final ArmPosition ARM_PICKUP_POSITION = new ArmPosition(0, 0, 0, 0);
