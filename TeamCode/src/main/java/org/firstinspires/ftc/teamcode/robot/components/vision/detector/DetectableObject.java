@@ -23,16 +23,25 @@ public class DetectableObject {
     double height;
     int largestAreaIndex;
     Scalar largestAreaMean;
+    String shortName;
 
     boolean disabled = true;
-
-    Mat mMask;
 
     public DetectableObject(ObjectDetector.ObjectType type, ObjectDetector.HsvBounds[] hsvBounds, double width, double height) {
         this.type = type;
         this.hsvBounds = hsvBounds;
         this.width = width;
         this.height = height;
+    }
+
+    public String getShortName() {
+        if (shortName == null) {
+            return this.type.toString();
+        }
+        return shortName;
+    }
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     public ObjectDetector.ObjectType getType() {

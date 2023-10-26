@@ -19,7 +19,7 @@ public class BearingOperation extends DriveToPositionOperation {
      * @param desiredBearing - desired bearing (radians)
      * @param title
      */
-    public BearingOperation(double desiredBearing, String title) {
+    public BearingOperation(double desiredBearing, DriveTrain driveTrain, String title) {
         super(null, title);
         this.title = title;
         this.desiredBearing = desiredBearing;

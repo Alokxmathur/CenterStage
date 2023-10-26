@@ -28,7 +28,7 @@ public class Field {
         Left, Right
     }
     public enum SpikePosition {
-        Left, Middle, Right
+        Left, Middle, Right, NotSeen
     }
 
     public static final Pose2d redLeftStartingPose = new Pose2d(

@@ -24,6 +24,8 @@ public class ObjectDetector {
 
     boolean gamePad1A, gamePad1B, gamePad1Y, gamePad1X, gamePad2A, gamePad2B, gamePad2Y, gamePad2X;
 
+    Field.SpikePosition lastSpikePosition = Field.SpikePosition.NotSeen;
+
     /**
      * Manage Object detection based on game pad buttons
      *
@@ -107,37 +109,13 @@ public class ObjectDetector {
     }
 
     public void setupCrossHair(Mat sizingMat) {
-        System.out.println("setting up cross hair, mat size = " + sizingMat.size());
+        //System.out.println("setting up cross hair, mat size = " + sizingMat.size());
 
         crossHairPoint = new Point(sizingMat.cols()/2, sizingMat.rows()/2);
     }
 
     public Point getCrossHairPoint() {
         return crossHairPoint;
-    }
-
-    public Field.SpikePosition getSpikePosition(Alliance.Color alliance) {
-        DetectableObject detectableObject = null;
-        if (alliance == Alliance.Color.RED) {
-            detectableObject = detectableObjects.get(ObjectType.RedProp);
-        }
-        else {
-            detectableObject = detectableObjects.get(ObjectType.BlueProp);
-        }
-        if (detectableObject == null) {
-            return Field.SpikePosition.Middle;
-        }
-        else {
-            if (detectableObject.getXPositionOfLargestObject() > 1000) {
-                return Field.SpikePosition.Right;
-            }
-            else if (detectableObject.getXPositionOfLargestObject() > 700) {
-                return  Field.SpikePosition.Middle;
-            }
-            else {
-                return Field.SpikePosition.Left;
-            }
-        }
     }
 
     public enum ObjectType {
@@ -162,7 +140,7 @@ public class ObjectDetector {
     };
 
     HsvBounds[] bluePropBounds = {
-            new HsvBounds(new Scalar(105, 50, 100), new Scalar(115, 255, 190))
+            new HsvBounds(new Scalar(105, 50, 100), new Scalar(120, 255, 190))
     };
 
     HsvBounds[] yellowPixelBounds = {
@@ -182,8 +160,16 @@ public class ObjectDetector {
     };
 
     {
-        this.addObject(new DetectableObject(ObjectType.RedProp, redPropBounds, 4, 4));
-        this.addObject(new DetectableObject(ObjectType.BlueProp, bluePropBounds, 4, 4));
+        DetectableObject redPropObject = new DetectableObject(ObjectType.RedProp, redPropBounds, 4, 4);
+        redPropObject.setShortName("RP");
+        redPropObject.enable();
+        this.addObject(redPropObject);
+
+        DetectableObject bluePropObject = new DetectableObject(ObjectType.BlueProp, bluePropBounds, 4, 4);
+        bluePropObject.setShortName("BP");
+        bluePropObject.enable();
+        this.addObject(bluePropObject);
+
         this.addObject(new DetectableObject(ObjectType.YellowPixel, yellowPixelBounds, 1, 10));
         this.addObject(new DetectableObject(ObjectType.GreenPixel, greenPixelBounds, 1, 10));
         this.addObject(new DetectableObject(ObjectType.PurplePixel, purplePixelBounds, 1, 10));
@@ -256,9 +242,9 @@ public class ObjectDetector {
     public String getDetectionStatus() {
         StringBuilder status = new StringBuilder();
         for (DetectableObject detectableObject: detectableObjects.values()) {
-            if (!detectableObject.isDisabled()) {
+            if (!detectableObject.isDisabled() && detectableObject.getFoundObjects().size() > 0) {
                 status
-                        .append(detectableObject.getType())
+                        .append(detectableObject.getShortName())
                         .append(": ")
                         .append(detectableObject.getFoundObjects().size())
                         .append("@")
@@ -277,17 +263,17 @@ public class ObjectDetector {
 
     /**
      * Take an rgb image and return a map of objects detected
-     * @param bgrImage
+     * @param rgbImage
      * @return
      */
-    public Map<ObjectType, DetectableObject> process(Mat bgrImage) {
+    public Map<ObjectType, DetectableObject> process(Mat rgbImage) {
         //save image sent in HSV format
-        Imgproc.cvtColor(bgrImage, mHsvMat, Imgproc.COLOR_BGR2HSV);
+        Imgproc.cvtColor(rgbImage, mHsvMat, Imgproc.COLOR_RGB2HSV);
         //pyramid down twice
-        Imgproc.pyrDown(bgrImage, pyrDownHsvMat);
+        Imgproc.pyrDown(rgbImage, pyrDownHsvMat);
         Imgproc.pyrDown(pyrDownHsvMat, pyrDownHsvMat);
         //convert to HSV so we can use hsv range of objects to filter
-        Imgproc.cvtColor(pyrDownHsvMat, pyrDownHsvMat, Imgproc.COLOR_BGR2HSV);
+        Imgproc.cvtColor(pyrDownHsvMat, pyrDownHsvMat, Imgproc.COLOR_RGB2HSV);
 
         crossHairHSV = mHsvMat.get((int)crossHairPoint.x, (int)crossHairPoint.y);
         if (findObjectAtCrossHair) {
@@ -307,7 +293,7 @@ public class ObjectDetector {
         else {
             this.detectableObjects.remove(ObjectType.CrossHair);
         }
-        crossHairColor = new Scalar(bgrImage.get((int)crossHairPoint.y, (int)crossHairPoint.x));
+        crossHairColor = new Scalar(rgbImage.get((int)crossHairPoint.y, (int)crossHairPoint.x));
 
         //go through each of our detectable objects
         for (DetectableObject detectableObject : detectableObjects.values()) {
@@ -334,7 +320,7 @@ public class ObjectDetector {
         objectsFound.clear();
         //find the contours in the dilated image
         Imgproc.findContours(mDilatedMask, objectsFound, mHierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-        System.out.println("Found " + objectsFound.size() + " objects of type: " + detectableObject.getType());
+        //System.out.println("Found " + objectsFound.size() + " objects of type: " + detectableObject.getType());
         //check each contour found
         for (MatOfPoint contour : objectsFound) {
             Rect boundingRectangle = Imgproc.boundingRect(contour);
@@ -355,11 +341,11 @@ public class ObjectDetector {
 
                     //Match.log("Found " + objectType + " of area: " + area);
                 } else {
-                    System.out.println("Area " + area + " too small for " + detectableObject.getType());
+                    //System.out.println("Area " + area + " too small for " + detectableObject.getType());
                 }
             }
             else {
-                System.out.println("Skipping " + detectableObject.getType() + " contour at " + boundingRectangle.x*4 + "," + boundingRectangle.y*4);
+                //System.out.println("Skipping " + detectableObject.getType() + " contour at " + boundingRectangle.x*4 + "," + boundingRectangle.y*4);
             }
         }
     }

@@ -68,7 +68,7 @@ public abstract class AutonomousHelper extends OpMode {
      */
     @Override
     public void init_loop() {
-        robot.handleGameControllers(gamepad1, gamepad2);
+        //robot.handleGameControllers(gamepad1, gamepad2);
         if (initErrorHappened) {
             telemetry.addData("State", "Error: " + initError);
         }

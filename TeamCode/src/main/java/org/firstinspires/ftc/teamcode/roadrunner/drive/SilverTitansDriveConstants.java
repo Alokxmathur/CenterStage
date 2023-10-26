@@ -46,7 +46,7 @@ public class SilverTitansDriveConstants {
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
     public static double WHEEL_RADIUS = 50.0/Field.MM_PER_INCH; // Gobilda 50 mm radius mecanum
-    public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
+    public static double GEAR_RATIO = 20; // output (wheel) speed / input (motor) speed
     public static double TRACK_WIDTH = 15; // in
     public static double TRACK_LENGTH = 8; //  in
 

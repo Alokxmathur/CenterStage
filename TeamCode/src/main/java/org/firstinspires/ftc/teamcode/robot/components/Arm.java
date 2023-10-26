@@ -110,6 +110,10 @@ public class Arm {
                 setPositions(RobotConfig.ARM_DEPOSIT_POSITION);
                 break;
             }
+            case Travel: {
+                setPositions(RobotConfig.ARM_TRAVEL_POSITION);
+                break;
+            }
             default : {
                 Match.log("Nothing done for arm operation of type: " + type);
             }
@@ -117,9 +121,10 @@ public class Arm {
     }
 
     private void setPositions(ArmPosition armPosition) {
-        rotator.setPosition(armPosition.getRotator());
-        setShoulderPosition(armPosition.getShoulder());
         setElbowPosition(armPosition.getElbow());
+        setShoulderPosition(armPosition.getShoulder());
+        rotator.setPosition(armPosition.getRotator());
+        claw.setPosition(armPosition.getClaw());
     }
 
     /**

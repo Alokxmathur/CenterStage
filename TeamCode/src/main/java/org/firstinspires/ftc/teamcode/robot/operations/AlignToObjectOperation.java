@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.robot.operations;
 
 import org.firstinspires.ftc.teamcode.game.Match;
+import org.firstinspires.ftc.teamcode.robot.components.drivetrain.DriveTrain;
 import org.firstinspires.ftc.teamcode.robot.components.vision.detector.ObjectDetectorWebcam;
 import org.firstinspires.ftc.teamcode.robot.components.vision.detector.ObjectDetector;
 
@@ -22,8 +23,8 @@ public class AlignToObjectOperation extends BearingOperation {
     ObjectDetectorWebcam webcam;
     boolean doNotEvenStart = false;
 
-    public AlignToObjectOperation(ObjectDetector.ObjectType objectType, String title) {
-        super(0, title);
+    public AlignToObjectOperation(ObjectDetector.ObjectType objectType, DriveTrain driveTrain, String title) {
+        super(0, driveTrain, title);
         this.title = title;
         this.objectType = objectType;
         this.webcam = Match.getInstance().getRobot().getWebcam();

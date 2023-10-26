@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes.autonomous;
 
+import org.firstinspires.ftc.teamcode.game.Field;
 import org.firstinspires.ftc.teamcode.game.Match;
 import org.firstinspires.ftc.teamcode.robot.RobotConfig;
 import org.firstinspires.ftc.teamcode.robot.components.Arm;
@@ -23,54 +24,55 @@ public abstract class Autonomous extends AutonomousHelper {
     public void start() {
         super.start();
         State state = new State("Deliver Purple Pixel");
-        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Deposit, "Raise Arm"));
+        state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Travel, "Raise Arm to travel"));
+        Field.SpikePosition spikePosition = match.getSpikePosition();
         //Spike Mark 1
-        /*if () {
-            state.addPrimaryOperation(new DriveForDistanceOperation(44 - RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 1"));
-            state.addPrimaryOperation(new StrafeLeftForDistanceOperation(12, 50, "Line up with Spike Mark 1"));
-            state.addPrimaryOperation(new DriveForDistanceOperation(8, -50, "Back away"));
-            state.addPrimaryOperation(new BearingOperation(0, "Turn Toward Backdrop"));
-            state.addPrimaryOperation(new DriveForDistanceOperation(12, 50, "Go to Interim Position"));
-        }*/
+        if (spikePosition == Field.SpikePosition.Left) {
+            state.addPrimaryOperation(new DriveForDistanceOperation(44*Field.MM_PER_INCH - RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 1"));
+            state.addPrimaryOperation(new StrafeLeftForDistanceOperation(12*Field.MM_PER_INCH, 50, "Line up with Spike Mark 1"));
+            state.addPrimaryOperation(new DriveForDistanceOperation(8*Field.MM_PER_INCH, -50, "Back away"));
+            state.addPrimaryOperation(new BearingOperation(0, robot.getDriveTrain(), "Turn Toward Backdrop"));
+            state.addPrimaryOperation(new DriveForDistanceOperation(12*Field.MM_PER_INCH, 50, "Go to Interim Position"));
+        }
         //Spike Mark 2
-        //else if () {
-            state.addPrimaryOperation(new DriveForDistanceOperation(47 - RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 2"));
-            state.addPrimaryOperation(new DriveForDistanceOperation(12, -50, "Back away"));
-            state.addPrimaryOperation(new BearingOperation(0, "Turn Toward Backdrop"));
-            state.addPrimaryOperation(new DriveForDistanceOperation(24, 50, "Go to Interim Position"));
-        //}
-        /*else if () {
+        else if (spikePosition == Field.SpikePosition.Middle) {
+            state.addPrimaryOperation(new DriveForDistanceOperation(47*Field.MM_PER_INCH - RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 2"));
+            state.addPrimaryOperation(new DriveForDistanceOperation(12*Field.MM_PER_INCH, -50, "Back away"));
+            state.addPrimaryOperation(new BearingOperation(0, robot.getDriveTrain(),"Turn Toward Backdrop"));
+            state.addPrimaryOperation(new DriveForDistanceOperation(24*Field.MM_PER_INCH, 50, "Go to Interim Position"));
+        }
+        else {
             //Spike Mark 3
-            state.addPrimaryOperation(new DriveForDistanceOperation(44 - RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 3"));
-            state.addPrimaryOperation(new StrafeRightForDistanceOperation(12, 50, "Line up with Spike Mark 3"));
-            state.addPrimaryOperation(new DriveForDistanceOperation(8, -50, "Back away"));
-            state.addPrimaryOperation(new BearingOperation(0, "Turn Toward Backdrop"));
-            state.addPrimaryOperation(new DriveForDistanceOperation(36, 50, "Go to Interim Position"));
-        }*/
+            state.addPrimaryOperation(new DriveForDistanceOperation(44*Field.MM_PER_INCH - RobotConfig.ROBOT_LENGTH, 50, "Deliver to Spike Mark 3"));
+            state.addPrimaryOperation(new StrafeRightForDistanceOperation(12*Field.MM_PER_INCH, 50, "Line up with Spike Mark 3"));
+            state.addPrimaryOperation(new DriveForDistanceOperation(8*Field.MM_PER_INCH, -50, "Back away"));
+            state.addPrimaryOperation(new BearingOperation(0, robot.getDriveTrain(),"Turn Toward Backdrop"));
+            state.addPrimaryOperation(new DriveForDistanceOperation(36*Field.MM_PER_INCH, 50, "Go to Interim Position"));
+        }
         states.add(state);
 
         //position should be x = 36, y = 36
 
         state = new State("Approach Backdrop");
         //Spike Mark 1
-        /*if () {
+        if (spikePosition == Field.SpikePosition.Left) {
             state.addPrimaryOperation(new StrafeLeftForDistanceOperation(8, 10, "Slide Left"));
-            state.addPrimaryOperation(new DriveForDistanceOperation(15, 10, "Approach Claw to BackDrop"));
+            state.addPrimaryOperation(new DriveForDistanceOperation(15*Field.MM_PER_INCH, 10, "Approach Claw to BackDrop"));
         }
         //Spike Mark 2
-        else if () {*/
-            state.addPrimaryOperation(new DriveForDistanceOperation(15, 10, "Approach Claw to BackDrop"));
-        //}
+        else if (spikePosition == Field.SpikePosition.Middle) {
+            state.addPrimaryOperation(new DriveForDistanceOperation(15*Field.MM_PER_INCH, 10, "Approach Claw to BackDrop"));
+        }
         //Spike Mark 3
-        /*else if () {
-            state.addPrimaryOperation(new StrafeRightForDistanceOperation(8, 10, "Slide Right"));
-            state.addPrimaryOperation(new DriveForDistanceOperation(15, 10, "Approach Claw to BackDrop"));
-        }*/
+        else {
+            state.addPrimaryOperation(new StrafeRightForDistanceOperation(8*Field.MM_PER_INCH, 10, "Slide Right"));
+            state.addPrimaryOperation(new DriveForDistanceOperation(15*Field.MM_PER_INCH, 10, "Approach Claw to BackDrop"));
+        }
         state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Open, "Drop Yellow Pixel"));
-        states.add(state);
+        //states.add(state);
 
         state = new State("Navigate to Scoring Area");
-        state.addPrimaryOperation(new DriveForDistanceOperation(-3, 50, "Back Away"));
+        state.addPrimaryOperation(new DriveForDistanceOperation(-3*Field.MM_PER_INCH, 50, "Back Away"));
         state.addPrimaryOperation(new ArmOperation(robot.getArm(), ArmOperation.Type.Pickup, "Lower Arm"));
 
         //Spike Mark 1
@@ -85,7 +87,7 @@ public abstract class Autonomous extends AutonomousHelper {
         /*else if () {
             state.addPrimaryOperation(new StrafeRightForDistanceOperation(16, 50, "Navigate"));
         }*/
-        states.add(state);
+        //states.add(state);
 
         /*state = new State("Grab second cone");
         //state.addPrimaryOperation(new ClawOperation(robot.getClaw(), ClawOperation.Type.Close, "Close Claw"));

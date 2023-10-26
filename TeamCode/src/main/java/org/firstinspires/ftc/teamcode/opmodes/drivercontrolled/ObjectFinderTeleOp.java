@@ -54,7 +54,7 @@ public class ObjectFinderTeleOp extends DriverControlledOperation {
     public void loop() {
         if (robot.fullyInitialized()) {
             try {
-                robot.handleDriveTrain(gamepad1);
+                //robot.handleDriveTrain(gamepad1);
 
                 telemetry.update();
                 if (gamepad2.left_stick_x < -0.2) {

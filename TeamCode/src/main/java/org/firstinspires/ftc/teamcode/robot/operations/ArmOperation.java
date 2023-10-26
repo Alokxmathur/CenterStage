@@ -26,7 +26,7 @@ import java.util.Locale;
 public class ArmOperation extends Operation {
 
     public enum Type {
-        Open, Close, Pickup, Deposit
+        Open, Close, Pickup, Travel, Deposit
     }
     Arm arm;
     Claw claw;
@@ -57,6 +57,7 @@ public class ArmOperation extends Operation {
     public void startOperation() {
         switch (this.type) {
             case Pickup:
+            case Travel:
             case Deposit:
             {
                 arm.setPositions(type);

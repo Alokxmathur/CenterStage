@@ -37,7 +37,7 @@ public class ObjectAligner extends ObjectFinderTeleOp {
             }
             if (objectType != null) {
                 Match.log("Aligning with " + objectType);
-                robot.queueSecondaryOperation(new AlignToObjectOperation(objectType,"Align with " + objectType));
+                robot.queueSecondaryOperation(new AlignToObjectOperation(objectType, robot.getDriveTrain(),"Align with " + objectType));
             }
         }
         if (gamepad1.right_trigger > 0.2 && robot.allOperationsCompleted()) {
