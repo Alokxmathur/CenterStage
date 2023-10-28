@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.game.Alliance;
 import org.firstinspires.ftc.teamcode.game.Field;
 import org.firstinspires.ftc.teamcode.game.Match;
 import org.firstinspires.ftc.teamcode.robot.components.Arm;
+import org.firstinspires.ftc.teamcode.robot.components.DroneLauncher;
 import org.firstinspires.ftc.teamcode.robot.components.InOutTake;
 import org.firstinspires.ftc.teamcode.robot.components.LED;
 import org.firstinspires.ftc.teamcode.robot.components.drivetrain.DriveTrain;
@@ -321,10 +322,14 @@ public class Robot {
             arm.closeClawIncrementally();
         }
 
+        if (gamePad2.right_trigger > 0.2) {
+
+        }
+
         if (secondaryOperationsCompleted()) {
             //handle shoulder movement
             if (Math.abs(gamePad2.left_stick_y) > 0.05) {
-                this.arm.setShoulderPower(gamePad2.left_stick_y);
+                this.arm.setShoulderPower((gamePad2.left_stick_y)/4);
             } else {
                 this.arm.retainShoulder();
             }
