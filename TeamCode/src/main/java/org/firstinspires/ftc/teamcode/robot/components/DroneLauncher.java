@@ -12,7 +12,7 @@ public class DroneLauncher {
     Servo droneLauncher;
 
     public DroneLauncher(HardwareMap hardwareMap) {
-        this.droneLauncher =hardwareMap.get(Servo.class, RobotConfig.TRIGGER);
+        this.droneLauncher =hardwareMap.get(Servo.class, RobotConfig.DRONE_LAUNCHER);
 
         assumeInitialPosition();
     }
