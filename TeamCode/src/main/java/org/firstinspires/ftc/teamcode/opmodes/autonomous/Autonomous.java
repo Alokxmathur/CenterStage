@@ -94,7 +94,7 @@ public abstract class Autonomous extends AutonomousHelper {
         //state.addSecondaryOperation(new WinchOperation(robot.getWinch(), robot.getFourBar(), WinchOperation.Type.High, "Level High"));
         state.addPrimaryOperation(new FollowTrajectory(
                 field.getRetractFromStackTrajectory(),
-                "Retract from stack"
+qa                "Retract from stack"
         ));
 
         state.addPrimaryOperation(new FollowTrajectory(

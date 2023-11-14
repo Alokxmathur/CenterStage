@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class Arm {
     DcMotor shoulder, elbow;
-    Servo rotator, claw;
+    Servo rotator, claw, wrist;
     boolean shoulderRetained, elbowRetained;
 
     public Arm(HardwareMap hardwareMap) {
@@ -32,6 +32,8 @@ public class Arm {
         //and the claw
         this.claw = hardwareMap.get(Servo.class, RobotConfig.CLAW);
 
+        this.wrist = hardwareMap.get(Servo.class, RobotConfig.WRIST);
+
         ensureMotorDirections();
         assumeInitialPosition();
     }
@@ -43,6 +45,7 @@ public class Arm {
     }
 
     public void assumeInitialPosition() {
+        this.wrist.setPosition(RobotConfig.WRIST_INITIAL_POSITION);
         this.rotator.setPosition(RobotConfig.ROTATOR_INITIAL_POSITION);
         this.claw.setPosition(RobotConfig.CLAW_OPEN_POSITION);
         //this.wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -82,6 +85,20 @@ public class Arm {
         this.claw.setPosition(RobotConfig.CLAW_CLENCH_POSITION);
     }
 
+    public void forwardWrist() {
+        this.wrist.setPosition(this.wrist.getPosition() - RobotConfig.ROTATOR_INCREMENT);
+    }
+
+    public void backwardWrist() {
+        this.wrist.setPosition(this.wrist.getPosition() + RobotConfig.ROTATOR_INCREMENT);
+    }
+
+    public void wristInitial() {
+        this.wrist.setPosition(RobotConfig.WRIST_INITIAL_POSITION);
+    }
+    public void wristUp() {
+        this.wrist.setPosition(RobotConfig.WRIST_UP_POSITION);
+    }
     public void forwardRotator() {
         this.rotator.setPosition(RobotConfig.ROTATOR_INITIAL_POSITION);
     }
